@@ -1,0 +1,147 @@
+<!-- BEGIN PAGE -->
+<div class="page-content">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+
+                    Products
+                    <small>运费模板管理</small>
+
+                </h3>
+
+                <ul class="breadcrumb">
+
+                    <li>
+                        <i class="icon-home"></i>
+                        <a ui-sref="home.index">首页</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+
+                    <li><a href="#">运费模板管理</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+
+                <div class="portlet box grey">
+
+                    <div class="portlet-title">
+                        <div class="actions" >
+                            <a ui-sref="home.addTemplet({deliveryTemplateId:0})" class="btn blue"><i class="icon-pencil"></i> 添加模板</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="portlet-body">
+                    <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                    <div ng-if="templates.length>0">
+                        <div class="logistics" ng-repeat="item in templates">
+                            <div class="logistics-top">
+                                <div class="logistics-name">{{item.deliveryTemplateName}}</div>
+                                <div class="logistics-right">
+                                    <div class="logistics-data">最后编辑时间：{{item.updateTime |date:"yyyy-MM-dd HH:MM:ss"}}</div>
+                                    <ul class="logistics-operation">
+                                        <li><a ui-sref="home.addTemplet({deliveryTemplateId:item.deliveryTemplateId})">修改</a>
+                                        <li><a ><span ng-click="del($index)">删除</span></a>
+                                    </ul>
+                                </div>
+                            </div>
+                            <table class="logistics-table">
+                                <thead>
+                                <tr class="bg01">
+                                    <th>运送方式</th>
+                                    <th class="transport">运送到</th>
+                                    <th>首件（个）</th>
+                                    <th>首件运费（元）</th>
+                                    <th>续件（个）</th>
+                                    <th>续件运费（元）</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>快递</td>
+                                    <td class="transport">全国</td>
+                                    <td>{{item.first_cases}}</td>
+                                    <td>{{item.delivery_charge}}</td>
+                                    <td>{{item.step}}</td>
+                                    <td>{{item.extra_charge}}</td>
+                                </tr>
+                                <tr ng-repeat="rule in item.rules">
+                                    <td>快递</td>
+                                    <td class="transport">{{rule.areas_name}}</td>
+                                    <td>{{rule.first_cases}}</td>
+                                    <td>{{rule.first_charge}}</td>
+                                    <td>{{rule.step}}</td>
+                                    <td>{{rule.extra_charge}}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                        <div class="row-fluid">
+                            <div class="span6">
+                                <div class="dataTables_info" id="sample_1_info">当前 {{pageStart}} 到 {{pageEnd}} 共 {{count}} 条记录
+                                </div>
+                            </div>
+                            <!--<div class="pull-right"><button ng-click="sendThisPage()" class="btn-primary">勾选项发货</button></div>-->
+                            <div class="span6" style="text-align: center;width: 100%;">
+                                <div class="dataTables_paginate paging_bootstrap pagination">
+                                    <pagination>
+                                        <ul num-pages="numPages" current-page="currentPage"
+                                            on-select-page="selectPage(page)">
+                                            <li class="prev" ng-class="{disabled: noPrevious()}"><a
+                                                    ng-click="selectPrevious()">&laquo; </a>
+                                            </li>
+                                            <li ng-if="judge(page,$index)" ng-repeat="page in pages" ng-class="{active: isActive(page)}"><a
+                                                    ng-click="selectPage(page)" ng-if="!point[$index]">{{page}}</a> <span ng-if="point[$index]">...</span></li>
+                                            <li class="next" ng-class="{disabled: noNext()}"><a
+                                                    ng-click="selectNext()"> &raquo; </a>
+                                            </li>
+                                        </ul>
+                                    </pagination>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+</div>
+
+
+<div class="modal fade" id="pauseModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title" >操作提醒</h4>
+            </div>
+            <div class="modal-body">
+                确认暂停活动？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-red" ng-click="pauseActivity()">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+

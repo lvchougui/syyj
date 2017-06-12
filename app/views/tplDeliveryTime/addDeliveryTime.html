@@ -1,0 +1,116 @@
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row-fluid">
+            <div class="span12">
+                <h3 class="page-title">
+                    新增配送时间
+                </h3>
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="icon-home"></i>
+                        <a ui-sref="home.index">首页</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+                    <li>
+                        <a ui-sref="home.delivery_time">配送时间列表</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+                    <li>详细</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="portlet box grey" style="border: 1px solid #9d9c9c">
+                    <div class="portlet-body form">
+                        <form  class="form-horizontal form-bordered"  enctype="multipart/form-data" >
+                            <div class="control-group" >
+                                <label class="control-label" style="margin-top: 18px;">配送区域</label>
+                                <div class="controls" style="margin-top:10px">
+                                    <select ng-model="province.province_id"
+                                            ng-options="o.province_id as o.province_name for o in provinces" ng-change="getCitiesByProvinceId(province.province_id)"></select>
+                                    <select ng-model="time.city_id"
+                                            ng-options="o.city_id as o.city_name for o in CitiesByProvinceId"></select>
+                                    <a><span ng-click="loadDistricts()">区域选择</span></a><span>{{time.district_name_toString}}</span>
+                                </div>
+                            </div>
+                            <div class="control-group" >
+                                <label class="control-label" style="margin-top: 10px;">配送时间</label>
+                                <div class="controls" style="margin-top:10px">
+                                    <a><span ng-click="loadTimes()">时间选择</span></a><span>{{time.delivery_time}}</span>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn blue" ng-click="save()">确认</button>
+                                <button  class="btn" ng-click="back()" style="margin-left:20px">取消
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="districtsModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:700px;" ng-click="hideAll()">
+    <div class="modal-dialog" style="width:700px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title" >区域选择</h4>
+            </div>
+            <div class="modal-body" style="overflow: hidden">
+                <form>
+                    <div ng-repeat="district in DistrictsByCityId" style="position: relative;">
+                        <div style="float: left">
+                            <input type="checkbox" ng-change="selectDistrict(district)" ng-model="district.flag" >
+                            <span >{{district.district_name}}</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-red" ng-click="saveDistricts()" data-dismiss="modal">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="timesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:700px;" ng-click="hideAll()">
+    <div class="modal-dialog" style="width:700px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title" >时间选择</h4>
+            </div>
+            <div class="modal-body" style="overflow: hidden">
+                <table style="border: 1px solid black">
+                    <tr>
+                        <th style="width: 100px;">时间段</th>
+                        <th style="width: 100px;">周一</th>
+                        <th style="width: 100px;">周二</th>
+                        <th style="width: 100px;">周三</th>
+                        <th style="width: 100px;">周四</th>
+                        <th style="width: 100px;">周五</th>
+                        <th style="width: 100px;">周六</th>
+                        <th style="width: 100px;">周日</th>
+                    </tr>
+                    <tr ng-repeat="item in items">
+                       <td>{{item.name}}</td>
+                       <td ng-repeat="time in item.times">
+                           <input type="checkbox" ng-change="selectTime(item,time)"ng-model="time.flag">
+                       </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-red" ng-click="saveTimes()" data-dismiss="modal">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+

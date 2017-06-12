@@ -1,0 +1,17 @@
+{
+    "server": "115.159.81.112",
+    "userName": "root",
+    "password": "pass99",
+    "options": {
+        "debug": {
+            "packet": true,
+            "data": true,
+            "payload": true,
+            "token": false,
+            "log": true
+        },
+        "database": "younong",
+        "rowCollectionOnRequestCompletion":true
+    }
+}
+

@@ -1,0 +1,101 @@
+<!-- BEGIN PAGE -->
+<div class="page-content">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE HEADER-->
+
+        <div class="row-fluid">
+            <div class="span12">
+
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+                    店铺预览
+                </h3>
+
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+
+        </div>
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+
+                <div class="portlet box grey" style="border: 1px solid #9d9c9c">
+                    <div class="portlet-title">
+
+                        <div class="actions" ng-if="store.store_id==0">
+                            <a ui-sref="home.store" class="btn blue"><i class="icon-pencil"></i> 创建店铺</a>
+                        </div>
+                        <div class="actions" ng-if="store.store_id!=0">
+                            <a ui-sref="home.store" class="btn blue"><i class="icon-pencil"></i> 修改</a>
+                        </div>
+                    </div>
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form  class="form-horizontal form-bordered"  enctype="multipart/form-data" ng-if="store.store_id!=0">
+                            <div class="control-group">
+                                <label class="control-label">
+                                    店铺名称</label>
+
+                                <div class="controls">
+                                    <input value="{{store.store_name}}" ng-model="store.store_name" placeholder="请输入店铺名称" style="width: 100%;border: none" ng-disabled="true">
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">
+                                    包邮模板</label>
+
+                                <div class="controls">
+                                    <input value="{{shippingTemplate.shippingTemplateName}}" ng-model="shippingTemplate.shippingTemplateName" placeholder="未选择包邮模板" style="width: 100%;border: none" ng-disabled="true">
+                                </div>
+                            </div>
+
+
+                            <div class="control-group">
+                                <label class="control-label">店铺logo</label>
+                                <div class="controls">
+                                    <img  ngf-thumbnail="covers"  ngf-pattern=="image/*" style="height: 300px" ng-if="covers" alt="图片尺寸最好为750*300(宽*高)">
+                                    <img src="../../media/image/image5.jpg" style="height: 300px" ng-if="!covers" alt="图片尺寸最好为750*300(宽*高)">
+                                </div>
+
+
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">
+                                    店铺描述</label>
+
+                                <div class="controls">
+                                    <textarea ng-model="store.store_describtion"  maxlength="128" style="width: 90%;
+                                  height: 200px;border: none" placeholder="店铺描述,最多128个字" ng-disabled="true"></textarea>
+
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">店铺故事</label>
+                                <div class="controls" style="text-align: center">
+                                    <table>
+                                        <tr><th>图片</th><th>故事</th></tr>
+                                        <tr ng-repeat="img in files" style="text-align: center;">
+                                            <td style="width: 60%;">
+                                                <img ngf-thumbnail="img"  ngf-pattern=="image/*"   ng-if="img">
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

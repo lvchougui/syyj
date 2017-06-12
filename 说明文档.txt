@@ -1,0 +1,13 @@
+company_goods_audit
+0:正常的商品活动
+1：表示不参加大会场的商家自主营销活动
+2:表示审核中的商品
+3：表示活动的商品
+company_goods_selfActivity
+1：表示商家自营活动商品，此时会将company_goods_audit屏蔽
+2：表示商家暂停活动后的状态，为了将又是自营又是参加大会场的商品区分出来，暂停活动时不修改company_goods_audit的值
+company_goods_sku_type
+0:正常销售
+1：打折
+2：特惠
+3：买一送一

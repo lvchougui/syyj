@@ -1,0 +1,328 @@
+<!-- BEGIN PAGE -->
+<div class="page-content">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE HEADER-->
+
+        <div class="row-fluid">
+            <div class="span12">
+
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+                    拼团详情
+                </h3>
+
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="icon-home"></i>
+                        <a ui-sref="home.index">首页</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+                    <li>
+                        <a ui-sref="home.activity({page:1})">拼团管理</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+                    <li>设置拼团活动</li>
+                </ul>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+
+        </div>
+
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+
+                <div class="portlet box grey" style="border: 1px solid #9d9c9c">
+
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form class="form-horizontal form-bordered" enctype="multipart/form-data">
+                            <div class="control-group">
+                                <label class="control-label">活动封面</label>
+                                <div class="controls">
+                                    <img  ngf-thumbnail="covers"  ngf-pattern=="image/*" style="width: 200px" ng-if="covers">
+                                    <img src="../../media/image/image5.jpg" style="width: 200px" ng-if="!covers">
+                                    <div style="margin-top:20px">
+                                        <button type="submit" ngf-select ng-keep="true" ngf-change="upload($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)" class="btn blue">选择</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label"><span style="color: red;">*</span>选择商品</label>
+
+                                <div class="controls">
+                                    <img src="{{activity.activity_img}}" style="width: 200px"
+                                         ng-if="activity.activity_img!=''">
+                                    <img src="../../media/image/placeholder_plus.png" style="width: 200px"
+                                         ng-if="activity.activity_img==''">
+
+                                    <div style="margin-top:20px">
+                                        <button class="btn blue" ng-click="selectProduct()">选择</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">
+                                    <span style="color: red;">*</span>活动名称</label>
+
+                                <div class="controls">
+                                    <input value="{{activity.activity_name}}" ng-model="activity.activity_name"
+                                           placeholder="请输入活动名称" style="width: 100%;border: none" required>
+
+                                </div>
+                            </div>
+
+
+                            <div class="control-group">
+                                <label class="control-label"><span style="color: red;">*</span>生效时间</label>
+
+                                <div class="controls">
+                                    <div class="input-append date form_datetime " style="margin-right: 30px">
+                                        <input type="text" class="m-wrap span12" data-date-format="yyyy-mm-dd  hh:ii"
+                                               id="pinStart" ng-model="activity.activity_start_time" required>
+                                        <span class="add-on"><i class="icon-calendar"></i></span>
+                                    </div>
+                                    —
+                                    <div class="input-append date form_datetime ">
+                                        <input type="text" class="m-wrap span12" data-date-format="yyyy-mm-dd  hh:ii"
+                                               id="pinEnd" ng-model="activity.activity_end_time" required>
+                                        <span class="add-on"><i class="icon-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">模拟成团</label>
+
+                                <div class="controls">
+                                    <input type="checkbox" ng-checked="isSimulateSelected()"
+                                           ng-click="updateSimulateSelection()">开启模拟成团
+                                    <div style="color: grey">开启模拟成团后，规定时间内人数未满的团，系统将会模拟“匿名买家”凑满人数，使该团成团。<br/>
+                                        您只需要对已付款参团的真实买家发货。建议合理开启，以提高成团率。
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="control-group">
+                                <label class="control-label">团长优惠</label>
+
+                                <div class="controls">
+                                    <div style="display: inline-block;"><input type="checkbox"
+                                                                               ng-checked="isDiscountSelected()"
+                                                                               ng-click="updateDiscountSelection()"><span>开启团长优惠</span>
+                                    </div>
+                                    <div style="display: inline-block;margin-left: 30px;"
+                                         ng-show="activity.is_head_discount==1">设置团长折扣:<select
+                                            ng-model="discount"
+                                            ng-options="discount.discountName for discount in discountArr"
+                                            ng-change="selectDiscount($index)" required>
+                                    </select></div>
+                                </div>
+                            </div>
+
+
+                            <div class="control-group">
+                                <label class="control-label"><span style="color: red;">*</span>优惠设置</label>
+
+                                <div class="controls">
+                                    <table style="width: 100%;border-collapse: collapse;" border="1" cellpadding="10">
+                                        <tr>
+                                            <th>规格/单位</th>
+                                            <th>原价（元）</th>
+                                            <th>拼团价（元）</th>
+                                            <th>拼团人数</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        <tr ng-repeat="item in activity.norms" style="text-align: center"
+                                            class="sku_table" ng-if="item.status==1">
+                                            <td>
+                                                <select ng-model="$parent.selectNorm[$index]"
+                                                        ng-if="item.sku_id==0"
+                                                        ng-options="y.company_goods_norms for (x, y) in activity.sku_norms"
+                                                        ng-change="selNorm($index)" required>
+                                                </select>
+
+                                                <div ng-if="item.sku_id!=0">{{item.sku_norms}}</div>
+                                            </td>
+                                            <td><div value="{{item.old_price}}"
+                                                       ng-model="item.old_price">{{item.old_price}}</div>
+                                                <!--<input value="{{item.old_price}}"
+                                                       ng-model="item.old_price" required>-->
+                                            </td>
+                                            <td><input value="{{item.activity_price}}"
+                                                       ng-model="item.activity_price" required></td>
+                                            <td><input value="{{item.buyer_number}}" ng-model="item.buyer_number" required>
+                                            </td>
+                                            <td>
+                                                <button class="btn red" style="margin-left:20px"
+                                                        ng-click="delNorm($index)"
+                                                        >
+                                                    删除
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="5">
+                                                <button class="btn blue" ng-click="addNorm()"
+                                                        >
+                                                    新增更多规格拼团
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="6">批量设置拼团价：<input type="text" placeholder="输入价格"
+                                                                           ng-model="batchPrice">元
+                                                <button class="btn blue" ng-click="setBatchPrice()">确认
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn blue" ng-click="save()">确认</button>
+                                <button  class="btn" ng-click="back()" style="margin-left:20px">取消
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="notifyModalLabel">操作提醒</h4>
+            </div>
+            <div class="modal-body">
+                {{notifyContent}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">好的</button>
+                <!--<button type="button" class="btn btn-primary" ng-click="delivery(deliveryIndex,deliveryId)" data-dismiss="modal">确定</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="selectProductModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+     aria-hidden="true" style="width:900px;position: fixed">
+    <div class="modal-dialog" style="width:900px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title ">已上架商品</h4>
+            </div>
+            <div class="modal-body">
+                <table class="table table-striped table-bordered table-hover dataTable"
+                       id="sample_1"
+                       aria-describedby="sample_1_info">
+                    <thead>
+                    <tr role="row">
+                        <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample_1"
+                            rowspan="1" style="text-align: center;vertical-align: middle"
+                            colspan="1" aria-label="Username: activate to sort column ascending"
+                                >商品图片
+                        </th>
+                        <th class="hidden-480 sorting_disabled" role="columnheader" rowspan="1" colspan="1"
+                            style="text-align: center;vertical-align: middle"
+                            aria-label="Joined">商品名称
+                        </th>
+                        <th class="hidden-480 sorting_disabled" role="columnheader" rowspan="1" colspan="1"
+                            style="text-align: center;vertical-align: middle"
+                            aria-label="Joined" style="width: 100px;">创建时间
+                        </th>
+
+                        <th class="hidden-480 sorting_disabled" role="columnheader" rowspan="1" colspan="1"
+                            style="text-align: center;vertical-align: middle"
+                            aria-label="Joined" style="text-align: center;width:120px;">
+                            <form class="form-search pull-right" style="margin: 0">
+                                <div class="input-append">
+                                    <input class="m-wrap" type="text" ng-model="search_goods_name" placeholder="商品名称">
+                                    <button class="btn green" ng-click="loadByGoodsName()">
+                                        <strong>搜索</strong></button>
+                                </div>
+                            </form>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody role="alert" aria-live="polite" aria-relevant="all">
+                    <tr ng-repeat="item in goods">
+                        <td style="text-align: center;vertical-align: middle"><img ng-src="{{item.company_goods_icon}}"
+                                                                                   style="width: 50px"></td>
+                        <td style="text-align: center;vertical-align: middle">{{item.company_goods_name}}</td>
+                        <td style="text-align: center;vertical-align: middle">{{item.add_date}}</td>
+                        <td style="text-align: center;vertical-align: middle">
+                            <button class="btn" ng-click="selectThis(item)">选取</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="span6" style="text-align: center;width: 100%;">
+                    <div class="row-fluid">
+                        <div class="span6">
+                            <div class="dataTables_info" id="sample_1_info">当前 {{pageStart}} 到 {{pageEnd}} 共
+                                {{count}} 条记录
+                            </div>
+                        </div>
+                        <!--<div class="pull-right"><button ng-click="sendThisPage()" class="btn-primary">勾选项发货</button></div>-->
+                        <div class="span6" style="text-align: center;width: 100%;">
+                            <div class="dataTables_paginate paging_bootstrap pagination">
+                                <pagination>
+                                    <ul num-pages="numPages" current-page="currentPage"
+                                        on-select-page="selectPage(page)">
+                                        <li class="prev" ng-class="{disabled: noPrevious()}"><a
+                                                ng-click="selectPrevious()">&laquo; </a>
+                                        </li>
+                                        <li ng-if="judge(page,$index)" ng-repeat="page in pages"
+                                            ng-class="{active: isActive(page)}"><a
+                                                ng-click="selectPage(page)" ng-if="!point[$index]">{{page}}</a>
+                                            <span ng-if="point[$index]">...</span></li>
+                                        <li class="next" ng-class="{disabled: noNext()}"><a
+                                                ng-click="selectNext()"> &raquo; </a>
+                                        </li>
+                                    </ul>
+                                </pagination>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"
+     style="position: fixed">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title">操作提醒</h4>
+            </div>
+            <div class="modal-body">
+                确认删除此团购规格？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-red" ng-click="deleteNorm()">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>

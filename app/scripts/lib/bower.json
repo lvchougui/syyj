@@ -1,0 +1,26 @@
+{
+  "name": "wopinback-libs",
+  "version": "1.0.0",
+  "authors": [
+    "Jarkong <fuuckboogie@gmail.com>"
+  ],
+  "description": "我拼了后台管理系统",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-strap": "~2.2.1",
+    "angular-ui-router": "~0.2.14",
+    "bootstrap-datepicker": "~1.4.0",
+    "bootstrap-multiselect": "~0.9.12",
+    "bootstrap": "~3.3.4",
+    "moment": "~2.10.2",
+    "ng-file-upload": "~4.2.0",
+    "angular-ueditor": "*"
+  }
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>后台管理系统</title>
+    <meta charset="utf-8"/>
+    <link href="media/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    <link href="media/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css"/>
+    <link href="media/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+    <link href="media/css/style-metro.css" rel="stylesheet" type="text/css"/>
+    <link href="media/css/style.css" rel="stylesheet" type="text/css"/>
+    <link href="media/css/style-responsive.css" rel="stylesheet" type="text/css"/>
+    <link href="media/css/default.css" rel="stylesheet" type="text/css" id="style_color"/>
+    <link href="media/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" type="text/css" href="media/css/chosen.css" />
+    <link rel="stylesheet" type="text/css" href="media/css/select2_metro.css" />
+    <link rel="stylesheet" type="text/css" href="media/css/multi-select-metro.css" />
+    <link href="media/css/bootstrap-modal.css" rel="stylesheet" type="text/css"/>
+    <link href="media/css/bootstrap-tag.css" rel="stylesheet" type="text/css"/>
+    <link href="media/css/jquery.fancybox.css" rel="stylesheet"/>
+    <link href="scripts/lib/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" rel="stylesheet" type="text/css"/>
+    <link href="scripts/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" rel="stylesheet" type="text/css"/>
+    <!-- BEGIN:File Upload Plugin CSS files-->
+    <link href="media/css/jquery.fileupload-ui.css" rel="stylesheet" type="text/css">
+    <!-- END:File Upload Plugin CSS files-->
+    <link href="media/css/inbox.css" rel="stylesheet" type="text/css"/>
+    <!-- END PAGE LEVEL STYLES -->
+    <link rel="shortcut icon" href="media/image/favicon.ico"/>
+    <link href="scripts/lib/bower_components/bootstrap-multiselect/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css"/>
+    <!-- BEGIN PAGE LEVEL STYLES -->
+    <link href="media/css/login.css" rel="stylesheet" type="text/css"/>
+    <link href="media/css/index.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div ui-view></div>
+<div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="notifyModalLabel">操作提醒</h4>
+            </div>
+            <div class="modal-body">
+                {{notifyContent}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">好的</button>
+                <!--<button type="button" class="btn btn-primary" ng-click="delivery(deliveryIndex,deliveryId)" data-dismiss="modal">确定</button>-->
+            </div>
+        </div>
+    </div>
+</div>
+<script data-main="scripts/main" src="ueditor/require.js"></script>
+</body>
+</html>

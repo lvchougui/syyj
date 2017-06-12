@@ -1,0 +1,278 @@
+<!-- BEGIN PAGE -->
+<div class="page-content">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE HEADER-->
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+
+                    Products
+                    <small>添加模板管理</small>
+
+                </h3>
+
+                <ul class="breadcrumb">
+
+                    <li>
+                        <i class="icon-home"></i>
+                        <a ui-sref="home.index">首页</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+
+                    <li><a href="#">添加模板</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+                <div class="portlet-body">
+                    <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
+                        <form  class="form-horizontal form-bordered"  enctype="multipart/form-data">
+                            <div class="control-group">
+                                <label class="control-label">
+                                    模板名称</label>
+
+                                <div class="controls">
+                                    <input value="{{deliveryTemplate.deliveryTemplateName}}" ng-model="deliveryTemplate.deliveryTemplateName" placeholder="请输入模板名称" style="width: 100%;border: none">
+
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    发货时间</label>
+                                <div class="controls">
+                                    <select ng-model="deliveryTemplate.frequence"
+                                            ng-options=" o for o in sendTime "  style="width: 50px">
+                                    </select>天内发货
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    是否包邮</label>
+
+                                <div class="controls">
+                                    <input type="radio" value=0 ng-model="deliveryTemplate.isShippingFree"  ng-checked="deliveryTemplate.isShippingFree==0">自定义运费
+                                    <input type="radio" value=1 ng-model="deliveryTemplate.isShippingFree" ng-checked="deliveryTemplate.isShippingFree==1" >卖家承担运费
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    计价方式</label>
+
+                                <div class="controls">
+                                   <span>按件数</span>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    运送方式</label>
+
+                                <div class="controls">
+                                    <span>单件直邮</span>
+                                </div>
+                            </div>
+                            <div class="control-group"  style="text-align: center" ng-if="deliveryTemplate.isShippingFree==0">
+                                <label class="control-label">
+                                    单件直邮运费设置</label>
+                                <div class="controls">
+                                <div align="left" style="margin-bottom:30px">默认运费:<input type="text" style="width:100px" ng-model="deliveryTemplate.first_cases" ng-disabled="true">件内，<input type="text" style="width:100px" ng-model="deliveryTemplate.delivery_charge">元，每增加<input type="text" style="width:100px" ng-disabled="true" ng-model="deliveryTemplate.step">件，增加运费<input type="text" style="width:100px" ng-model="deliveryTemplate.extra_charge">元</div>
+
+                                    <div ng-if="rules.length>0">
+                                        <table >
+                                            <tr><th>运送到</th><th>首件(件)</th><th>首费(元)</th><th>续件(件)</th><th>续费(元)</th><th>操作</th></tr>
+                                            <tr ng-repeat="item in rules" style="text-align: center;" >
+                                                <td>{{item.areas_name}}<a><span ng-click="loadProvince($index,1)">编辑</span></a>
+                                                </td>
+                                                <td><input style="width:100px;margin-right:30px" value="{{item.first_cases}}" ng-disabled="true" ng-model="item.first_cases" ></td>
+                                                <td><input style="width:100px;margin-right:30px" value="{{item.first_charge}}" ng-model="item.first_charge" ></td>
+                                                <td><input style="width:100px;margin-right:30px" value="{{item.step}}" ng-disabled="true" ng-model="item.step" ></td>
+                                                <td><input style="width:100px;margin-right:30px" value="{{item.extra_charge}}" ng-model="item.extra_charge" ></td>
+                                                <td>
+                                                    <a><span  ng-click="del($index,1)">删除</span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <a><div><span ng-click="addRules()">为指定城市设置运费</span></div></a>
+                                </div>
+                            </div>
+                        </form>
+                            <div >
+                                <input type="checkbox" ng-model="isShippingFree">店铺指定条件包邮(可选,针对店铺所有商品)
+                                <div ng-if="isShippingFree">
+                                    <div class="control-group">
+                                        <label class="control-label">
+                                            模板名称</label>
+
+                                        <div class="controls">
+                                            <input value="{{shippingFreeTemplate.shippingFreeTemplateName}}" ng-model="shippingFreeTemplate.shippingFreeTemplateName" placeholder="请输入包邮模板名称" >
+
+                                        </div>
+                                    </div>
+                                    <div   ng-if="shippingRules.length>0">
+                                        <table >
+                                            <tr><th>选择地区</th><th>设置包邮条件</th><th>操作</th></tr>
+                                                <tr ng-repeat="item in shippingRules" style="text-align: center" >
+                                                <td>{{item.areas_name}}<a><span ng-click="loadProvince($index,2)">编辑</span></a>
+                                                </td>
+                                                <td>满<input value="{{item.isShippingFreeCondition}}" ng-model="item.isShippingFreeCondition" >元包邮</td>
+                                                <td>
+                                                    <a><span  ng-click="del($index,2)">删除</span></a>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <a><div ><span ng-click="addShippingRules()">为指定城市设置包邮条件</span></div></a>
+                                </div>
+
+                            </div>
+                        <div class="form-actions" >
+                            <button type="submit" class="btn blue" ng-click="editor()" ng-if="deliveryTemplateId!=0">修改</button>
+                            <button type="submit" class="btn blue" ng-click="save()" ng-if="deliveryTemplateId==0">保存</button>
+                            <button type="submit" class="btn blue" ng-click="goBack()" >返回</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="provinceModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:700px;" ng-click="hideAll()">
+    <div class="modal-dialog" style="width:700px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title" >操作提醒</h4>
+            </div>
+            <div class="modal-body">
+
+                <form>
+                <table>
+                    <tr ng-repeat="item in china">
+                        <td ><input type="checkbox" ng-click="selectAllProvince(item,1)"  ng-model="item.flag" ng-disabled="item.flag&&item.rule_id!=rules[current_rule_id].rule_id">{{item.name}}</td>
+                        <td ng-repeat="province in item.province" style="position: relative">
+                            <div ng-style="province.myStyle">
+                                <input type="checkbox" ng-change="selectProvince(item,province,1)"  ng-model="province.flag" ng-disabled="province.flag&&province.rule_id!=rules[current_rule_id].rule_id">
+                                <span >{{province.province_name}}</span>
+                                <span ng-click="toggle(province)"><img src="{{localImageIp}}/image/pyuding-ice01.png" /></span>
+                            </div>
+                            <div class="city">
+                                <div ng-show="province.visible" ng-repeat="city in cities[province.province_id-1].cities" style="float:left; padding:0 5px;">
+                                    <input type="checkbox" ng-click="selectCities(item,province,city,1)"  ng-model="city.flag" ng-disabled="city.flag&&city.rule_id!=rules[current_rule_id].rule_id">
+                                    <span >{{city.city_name}}</span>
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+                </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-red" ng-click="saveCities(1)" data-dismiss="modal">确认</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel(1)">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<div class="modal fade" id="shippingModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="width:700px;">
+    <div class="modal-dialog" style="width:700px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+                <h4 class="modal-title" >操作提醒</h4>
+            </div>
+            <div class="modal-body">
+
+                <form>
+                    <table>
+                        <tr ng-repeat="item in china">
+                            <td ><input type="checkbox" ng-click="selectAllProvince(item,2)"  ng-model="item.shippingFlag" ng-disabled="item.shippingFlag&&item.shippingRule_id!=shippingRules[current_rule_id].shippingRule_id">{{item.name}}</td>
+                            <td ng-repeat="province in item.province" style="position: relative">
+                                <div ng-style="province.myStyle">
+                                    <input type="checkbox" ng-change="selectProvince(item,province,2)"  ng-model="province.shippingFlag" ng-disabled="province.shippingFlag&&province.shippingRule_id!=shippingRules[current_rule_id].shippingRule_id">
+                                    <span >{{province.province_name}}</span>
+                                    <span ng-click="toggle(province)"><img src="{{localImageIp}}/image/pyuding-ice01.png" /></span>
+                                </div>
+                                <div class="city">
+                                    <div ng-show="province.visible" ng-repeat="city in cities[province.province_id-1].cities" style="float:left; padding:0 5px;">
+                                        <input type="checkbox" ng-click="selectCities(item,province,city,2)"  ng-model="city.shippingFlag" ng-disabled="city.shippingFlag&&city.shippingRule_id!=shippingRules[current_rule_id].shippingRule_id">
+                                        <span >{{city.city_name}}</span>
+                                    </div>
+                                </div>
+
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+                <!--<div class="zong" id="zong">
+                    <dl class="bg01" ng-repeat="item in china">
+                        <dt >
+                            <label for="a01">
+                              <input id="a01" type="checkbox" ng-click="selectAllProvince(item)"  ng-model="item.flag">{{item.name}}
+                            </label>
+                        </dt>
+                        <dd>
+                            <ul class="area" >
+                                <li  ng-repeat="province in item.province">
+                                    <input  type="checkbox" ng-click="selectProvince(item,province)"  ng-model="province.flag">
+                                    <label for="b01" class="dian">
+                                        <span id="b01" ng-click="toggle()">{{province.province_name}}</span>
+                                        <span><img src="/media/image/pyuding-ice01.png" /></span>
+                                    </label>
+                                    <div ng-show="visible">
+                                        <div class="yin-list" >
+                                            <label for="c01">
+                                                <input id="c01" type="checkbox" value="" name="" />
+                                                <span>华东</span>
+                                            </label>
+                                            &lt;!&ndash;<label for="c01">
+                                                <input id="c01" type="checkbox" value="" name="" />
+                                                <span>111</span>
+                                            </label>&ndash;&gt;
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </dd>
+                    </dl>
+                </div>-->
+                <!--        <table>
+                            <tr ng-repeat="item in china">
+                                <td><input type="checkbox" ng-click="selectAllProvince(item)"  ng-model="item.flag">{{item.name}}</td>
+                                <td ng-repeat="province in item.province">
+                                    <input type="checkbox" ng-click="selectProvince(item,province,province.flag)"  ng-model="province.flag">
+                                    <label for="b01" class="dian">
+                                        <span>{{province.province_name}}</span>
+                                        <span><img src="/media/image/pyuding-ice01.png" /></span>
+                                    </label>
+
+                            <table >
+                                <tr ng-repeat="row in cities[province.province_id].cities">
+                                    <div>zxc</div>
+                                </tr>
+                            </table>
+                                </td>
+                            </tr>
+                        </table>
+                     </div>-->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-red" ng-click="saveCities(2)" data-dismiss="modal">确认</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel(2)">取消</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
