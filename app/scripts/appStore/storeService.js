@@ -9,64 +9,26 @@ define(['common/services'],
     function (services) {
         services.factory('StoreService', function ($http,$q,Upload) {
             return{
-                addStore: function (data) {
-                    data.company_id=localStorage.company_id;
+
+                updateConfig: function (data) {
                     var deferred = $q.defer();
-                    $http.post('/companyPc/api/account/addStore',data).success(function(res){
+                    $http.post('/companyPc/api/account/chgConfig',data).success(function(res){
                         deferred.resolve(res);
                     }).error(function(err){
                         deferred.reject(err);
                     })
                     return deferred.promise;
                 },
-                updateStore: function (data) {
-                    data.company_id=localStorage.company_id;
-                    var deferred = $q.defer();
-                    $http.post('/companyPc/api/account/updateStore',data).success(function(res){
-                        deferred.resolve(res);
-                    }).error(function(err){
-                        deferred.reject(err);
-                    })
-                    return deferred.promise;
-                },
-                getStore:function(){
+                getConfig:function(){
                     var data={}
-                    data.company_id=localStorage.company_id;
                     var deferred = $q.defer();
-                    $http.get('/companyPc/api/account/getStore/'+data.company_id).success(function(res){
+                    $http.get('/companyPc/api/account/getConfig').success(function(res){
                         deferred.resolve(res);
                     }).error(function(err){
                         deferred.reject(err);
                     })
                     return deferred.promise;
                 },
-
-                getShippingTemplate:function(){
-
-                    var data={}
-                    data.company_id=localStorage.company_id;
-                    var deferred = $q.defer();
-                    $http.get('/companyPc/api/account/getShippingTemplate/'+data.company_id).success(function(res){
-                        deferred.resolve(res);
-                    }).error(function(err){
-                        deferred.reject(err);
-                    })
-                    return deferred.promise;
-                },
-
-                getAllShippingTemplate:function(){
-
-                    var data={}
-                    data.company_id=localStorage.company_id;
-                    var deferred = $q.defer();
-                    $http.get('/companyPc/api/account/getAllShippingTemplate/'+data.company_id).success(function(res){
-                        deferred.resolve(res);
-                    }).error(function(err){
-                        deferred.reject(err);
-                    })
-                    return deferred.promise;
-                },
-
 
                 resize: function (data,width,height,quantity,ratio) {
                     console.log(ratio);

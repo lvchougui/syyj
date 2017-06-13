@@ -18,8 +18,8 @@ define(['app'], function (app) {
                     url: "/home", abstract: true, templateUrl: 'home.html'
 
                 })
-                .state("home.preStore", {
-                    url: "/preStore",
+                .state("home.indexconfig", {
+                    url: "/indexconfig",
                     views: {
                         '': {
                             templateUrl: 'views/store/home.preStore.html',

@@ -1,12 +1,3 @@
-/**
- * Created by younong-3 on 2016/5/30.
- */
-/**
- * Created by wei on 16/1/12.
- */
-
-
-
 define(['common/controllers', 'domReady'],
     function (controllers, domReady) {
         controllers.controller('PreStoreCtrl',function ($scope,StoreService,$stateParams,errMap,$state,validation,$q) {
@@ -14,55 +5,30 @@ define(['common/controllers', 'domReady'],
             var imgArray=[];
             $scope.files=[];
             $scope.covers='';
-            $scope.store={
-                store_id:0,
-                store_logo:null,
-                store_detail_img:null,
-                store_name:null,
-                store_describtion:null
+            $scope.configs={
+                index_img:null,
+                img_href:null,
+                master_desc:null
             }
 
-            $scope.shippingTemplate={
-                shippingTemplateId:'',
-                shippingTemplateName:''
-            }
             var waitDelImg={
                 icon:[],
                 img:[]
             };
             $scope.files=[];
-
+            console.log('===========');
             var load = function () {
-                StoreService.getStore().then(function(data){
+                console.log('======1111=====');
+                StoreService.getConfig().then(function(data){
+                    console.log(data.result[0]);
                     if(data.length!=0){
-                        $scope.store=data[0];
-                        if( $scope.store.store_logo!=null){
-                            $scope.covers= IconIp+$scope.store.store_logo;
-                            console.log( $scope.covers)
+                        $scope.configs=data.result[0];
+                        if( $scope.configs.index_img!=null){
+                            //$scope.covers= IconIp+$scope.configs.index_img;
+                            //console.log( $scope.covers)
                         }
-                        if($scope.store.store_detail_img!=null){
-                            console.log('dsd')
-                            imgArray=$scope.store.store_detail_img.split(';')
-                            imgArray.pop();
-                            imgArray.forEach(function(item){
-                                $scope.files.push(item);
-                            })
-                            for(var i in $scope.files){
-                                $scope.files[i]=ImgIp+$scope.files[i];
-                            }
-                        }
-                        console.log(data)
+
                     }
-
-                    StoreService.getShippingTemplate().then(function(data){
-                        if(data.length>0){
-                            $scope.shippingTemplate.shippingTemplateId=data[0].shippingTemplate_id;
-                                $scope.shippingTemplate.shippingTemplateName=data[0].shippingTemplate_name;
-                        }
-                    },function(err){
-                        console.log(err);
-                    })
-
                 },function(err){
                     console.log(err);
                 })

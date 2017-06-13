@@ -8,42 +8,23 @@ define(['common/controllers', 'domReady'],
                     var username = $scope.loginForm.username;
                     var password = $scope.loginForm.password;
 
-                    console.log("=== Username : "+username+" , Password : "+password);
                     if (username && password) {
-                        console.log("======Login=======");
-                        $http.post('/companyPc/api/user/login', {username: username, password: password}).success(function (result) {
+                        $http.post('/companyPc/api/user/login', {
+                            username: username,
+                            password: password
+                        }).success(function (result) {
 
-                            $rootScope.user.company_id = result.result.company_id;
-                            $rootScope.user.headimgurl = result.result.headimgurl;
-                            $rootScope.user.company_name = result.result.company_name;
-                            $rootScope.user.company_type = result.result.company_type;
-                            $rootScope.logout = function(){
-				    delete $window.sessionStorage.token;
+                            $rootScope.logout = function () {
+                                delete $window.sessionStorage.token;
                                 $state.go('login');
                             }
-                            $window.sessionStorage.token = "token";
-                            console.log($rootScope.user);
 
-                            try{
-                                localStorage.company_id=$rootScope.user.company_id;
-                                localStorage.company_name=$rootScope.user.company_name;
-                                localStorage.headimgurl=$rootScope.user.headimgurl;
-                                localStorage.company_type=$rootScope.user.company_type;
-//HEAD
-
-//
-                                localStorage.currentPage=1;
-// yunfei
-                            }catch(e){
-                                console.log(e);
-                            }
-                            console.log("$window.sessionStorage.token = "+$window.sessionStorage.token);
-                            $state.go('home.preStore');
+                            $state.go('home.indexconfig');
                         }).error(function (error) {
-                                console.log(error);
-                                $scope.notifyContent = error.error;
-                                $('#notifyModal').modal();
-                            });
+                            console.log(error);
+                            $scope.notifyContent = error.error;
+                            $('#notifyModal').modal();
+                        });
                     }
                 }
 
@@ -109,10 +90,6 @@ define(['common/controllers', 'domReady'],
                         },
 
                         submitHandler: function (form) {
-
-                            console.log("=== submit ==")
-                            console.log($scope.loginForm.username);
-
                             login();
                         }
                     });
