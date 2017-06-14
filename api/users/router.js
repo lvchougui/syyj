@@ -36,7 +36,8 @@ function checkUser(req, res, err, data) {
     if (pwd === '' || pwd != req.body.password) {
         return res.json(400, {error: "用户名密码不匹配"});
     }
-    return res.json(200, {result: data[0]});
+    //return res.json(200, {result: data[0]});
+    return res.status(200).json( {result: data[0]})
 }
 
 

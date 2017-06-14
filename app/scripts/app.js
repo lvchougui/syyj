@@ -1,8 +1,8 @@
 // The app/scripts/app.js file, which defines our AngularJS app
 
-var IconIp='http://115.159.81.112:4001/';
-var ImgIp='http://115.159.81.112:4000/';
-var imgUploadIP='http://115.159.81.112:4000/api/attachment/upload';
+var IconIp='http://127.0.0.1:4001/';
+var ImgIp='http://127.0.0.1:4000/';
+var imgUploadIP='http://127.0.0.1:4000/api/attachment/upload';
 var iconUploadIP='http://115.159.81.112:4001/api/attachment/upload';
 var localImageIp="http://115.159.81.112:3008/media"
 var localExcelIp="http://115.159.81.112:3008"
@@ -37,9 +37,8 @@ define(['angular', 'common/controllers',
                 if (toState.name == 'login') {
                     return;
                 }
+
                 if (!$window.sessionStorage.token) {
-
-
                     console.log("=====>>> 未登录")
                     // 取消默认跳转行为
                     event.preventDefault();

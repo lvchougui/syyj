@@ -8,7 +8,6 @@
 
         <div class="row-fluid">
             <div class="span12">
-
                 <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                 <h3 class="page-title">
                     可配置项
@@ -30,6 +29,9 @@
                                 <div class="controls">
                                     <img  ngf-thumbnail="covers"  ngf-pattern=="image/*" style="height: 300px" ng-if="covers">
                                     <img src="../../media/image/image5.jpg" style="height: 300px" ng-if="!covers" alt="图片尺寸最好为750*300(宽*高)">
+                                    <div style="margin-top:20px">
+                                        <button type="submit" ngf-select ng-keep="true" ngf-change="upload($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)" class="btn blue">选择</button>
+                                    </div>
                                 </div>
                             </div>
 
@@ -51,7 +53,10 @@
 
                                 </div>
                             </div>
-
+                            <div class="form-actions">
+                                <button type="submit" class="btn blue" ng-click="save()">确认修改</button>
+                                </button>
+                            </div>
                         </form>
                     </div>
                 </div>

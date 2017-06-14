@@ -28,7 +28,7 @@ accountDao.updateConfig = function(data,cb){
     var sqlupdate = 'update tb_config set '+fields.join(',')+' ';
 
     console.log(sqlupdate);
-    sqlClient.query(sqlupdate,[data.imgUrl,data.imgHref,data.masterDesc],function(err,data){
+    sqlClient.query(sqlupdate,[data.index_img,data.img_href,data.master_desc],function(err,data){
         if(err){
             return  cb&&cb(err, null);
         }else{
