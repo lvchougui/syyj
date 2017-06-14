@@ -30,6 +30,16 @@ define(['common/services'],
                     return deferred.promise;
                 },
 
+                uploadCover:function(data){
+                    var deferred = $q.defer();
+                    $http.post('/companyPc/api/upload/img',data).success(function(res){
+                        deferred.resolve(res);
+                    }).error(function(err){
+                        deferred.reject(err);
+                    })
+                    return deferred.promise;
+                },
+
                 resize: function (data,width,height,quantity,ratio) {
                     console.log(ratio);
                     var deferred = $q.defer();

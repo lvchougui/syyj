@@ -18,7 +18,8 @@ define(['common/controllers', 'domReady'],
                                 delete $window.sessionStorage.token;
                                 $state.go('login');
                             }
-
+                            console.log(result);
+                            $window.sessionStorage.token = result.username;
                             $state.go('home.indexconfig');
                         }).error(function (error) {
                             console.log(error);

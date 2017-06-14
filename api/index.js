@@ -83,6 +83,9 @@ apiModule.init = function (app) {
     app.use("/companyPc/api/address", require("./address/addressRouter"));
     app.use("/companyPc/api/delivery_charge", require("./delivery_charge/chargeRouter"));
     app.use("/companyPc/api/delivery_time", require("./delivery_time/timeRouter"));
+
+
+    app.use("/companyPc/api/upload", require("./upload/uploadRouter"));
 // yunfei
     // FINALLY, use any error handlers
     // app.use(require("./errors/notFound"));
