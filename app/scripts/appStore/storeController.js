@@ -3,14 +3,13 @@ define(['common/controllers', 'domReady'],
         controllers.controller('PreStoreCtrl',function ($scope,StoreService,CompanyService,$stateParams,errMap,$state,validation,$q) {
             $scope.files=[];
             $scope.covers='';
+            $scope.uploadImg='';
             $scope.configs={
                 index_img:null,
                 img_href:null,
                 master_desc:null
             }
-            console.log('===========');
             var load = function () {
-                console.log('======1111=====');
                 StoreService.getConfig().then(function(data){
                     console.log(data.result[0]);
                     if(data.length!=0){
@@ -38,6 +37,7 @@ define(['common/controllers', 'domReady'],
                 console.log($file)
                 if ($file) {
                     $scope.covers = $file;
+                    $scope.uploadImg = $file;
                     $scope.configs.index_img = $scope.covers;
                     if (Object.prototype.toString.call($scope.configs.index_img) == "[object String]") {
                         waitDelImg.img.push($scope.configs.index_img);
@@ -63,26 +63,35 @@ define(['common/controllers', 'domReady'],
             function addSave() {
                 console.log('保存图片');
 
-                var uploadImgPromise = CompanyService.uploadImg(imgUploadIP,  $scope.configs.index_img);
-                uploadImgPromise.then(function (res) {
-                    console.log(res);
-                    $scope.configs.index_img = res.data.path;
-                }, function (err) {
-                    console.log(err);
-                }, function (update) {
-                    console.log(update);
-                });
+                if($scope.uploadImg&&$scope.uploadImg!=''){
+                    var uploadImgPromise = CompanyService.uploadImg(imgUploadIP,  $scope.covers);
+                    uploadImgPromise.then(function (res) {
+                        console.log(res);
+                        $scope.configs.index_img = res.data.path;
+                        StoreService.updateConfig($scope.configs).then(function (data) {
+                            console.log(data);
+                            if(data.result==200){
+                                alert("修改成功");
+                            }
+                        }, function (err) {
+                            console.log(err);
+                        })
+                    }, function (err) {
+                        console.log(err);
+                    }, function (update) {
+                        console.log(update);
+                    });
+                }else{
+                    StoreService.updateConfig($scope.configs).then(function (data) {
+                        console.log(data);
+                        if(data.result==200){
+                            alert("修改成功");
+                        }
+                    }, function (err) {
+                        console.log(err);
+                    })
+                }
 
-                //uploadImgPromise.then(function (data) {
-                //    console.log($scope.configs);
-                //    StoreService.updateConfig($scope.configs).then(function (data) {
-                //        console.log(data);
-                //    }, function (err) {
-                //        console.log(err);
-                //    })
-                //}, function (err) {
-                //
-                //})
             }
         });
     });
