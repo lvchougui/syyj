@@ -22,7 +22,11 @@ require.config({
         'hotkey': 'lib/external/jquery.hotkeys',
         'xls': 'lib/xls',
         'XLSX': 'lib/xlsx',
-        'jszip': 'lib/jszip'
+        'jszip': 'lib/jszip',
+        ueditorConfig: '../ueditor/ueditor.config',
+        ueditorAll: '../ueditor/ueditor.all',
+        ueditorLang: '../ueditor/lang/zh-cn/zh-cn',
+        angularUeditor: 'lib/bower_components/angular-ueditor/dist/angular-ueditor'
     },
     shim: {
         'angular': {
@@ -46,7 +50,21 @@ require.config({
             exports: 'Login'
         }
         , 'wysiwyg': ['bootstrap', 'hotkey']
-
+       , ueditorConfig: {
+            exports: 'ueditorConfig'
+        },
+        ueditorAll: {
+            deps: ['ueditorConfig'],
+            exports: 'ueditorAll'
+        },
+        ueditorLang:{
+            deps: ['ueditorAll'],
+            exports:'ueditorLang',
+        },
+        angularUeditor: {
+            deps: [ 'angular', 'ueditorConfig', 'ueditorAll','ueditorLang'],
+            exports: 'angularUeditor'
+        }
     }
 });
 require([
@@ -81,6 +99,8 @@ require([
         'appSales/salesService',
         'appPintuan/pinController',
         'appPintuan/pinService',
+        'appArticle/articleController',
+        'appArticle/articleService',
         'datepicker',
         'datetimepicker',
         'datepicker-locale',
@@ -91,6 +111,10 @@ require([
         , 'siteApp'
         , 'uniform'
         , 'validate'
+        ,'ueditorConfig'
+        ,'ueditorAll'
+        ,'ueditorLang'
+        ,'angularUeditor'
     ],
     function (angular, domReady, Login) {
         'use strict';

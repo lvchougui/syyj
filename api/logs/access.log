@@ -2345,3 +2345,32 @@
        index_img: 'http://orhnya4jo.bkt.clouddn.com/6c8bb48d9235350b45bfe701f64f875c.JPG',
        img_href: 'http://localhost:3008/',
        master_desc: '电风扇的发送到桂丰大厦' } ] }
+[2017-06-18 14:37:10.009] [INFO] normal - { result: 
+   [ RowDataPacket {
+       index_img: 'http://orhnya4jo.bkt.clouddn.com/6c8bb48d9235350b45bfe701f64f875c.JPG',
+       img_href: 'http://localhost:3008/',
+       master_desc: '电风扇的发送到桂丰大厦' } ] }
+[2017-06-18 14:38:23.888] [INFO] normal - { index_img: 'http://orhnya4jo.bkt.clouddn.com/b620c2fd384f0c778b01bc02823befde.JPG',
+  img_href: 'http://localhost:3008/',
+  master_desc: 'cvxcvxc发送到发送到cxgvx' }
+[2017-06-18 14:38:24.109] [INFO] normal - { result: 200 }
+[2017-06-18 15:27:06.429] [INFO] normal - { result: 
+   [ RowDataPacket {
+       index_img: 'http://orhnya4jo.bkt.clouddn.com/b620c2fd384f0c778b01bc02823befde.JPG',
+       img_href: 'http://localhost:3008/',
+       master_desc: 'cvxcvxc发送到发送到cxgvx' } ] }
+[2017-06-18 15:27:21.404] [INFO] normal - { result: 
+   [ RowDataPacket {
+       index_img: 'http://orhnya4jo.bkt.clouddn.com/b620c2fd384f0c778b01bc02823befde.JPG',
+       img_href: 'http://localhost:3008/',
+       master_desc: 'cvxcvxc发送到发送到cxgvx' } ] }
+[2017-06-18 16:03:29.491] [INFO] normal - { result: 
+   [ RowDataPacket {
+       index_img: 'http://orhnya4jo.bkt.clouddn.com/b620c2fd384f0c778b01bc02823befde.JPG',
+       img_href: 'http://localhost:3008/',
+       master_desc: 'cvxcvxc发送到发送到cxgvx' } ] }
+[2017-06-18 18:22:11.893] [INFO] normal - { result: 
+   [ RowDataPacket {
+       index_img: 'http://orhnya4jo.bkt.clouddn.com/b620c2fd384f0c778b01bc02823befde.JPG',
+       img_href: 'http://localhost:3008/',
+       master_desc: 'cvxcvxc发送到发送到cxgvx' } ] }
