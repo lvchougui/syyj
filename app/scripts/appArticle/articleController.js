@@ -66,6 +66,19 @@ define(['common/controllers', 'domReady'],
                 })
             }
 
+            $scope.judge=function(page,index){
+                if(Math.abs($scope.currentPage - page)==5&&page!=1&&page!=$scope.numPages){
+                    $scope.point[index]=true;
+                }else{
+                    $scope.point[index]=false;
+                }
+
+                if(Math.abs($scope.currentPage - page)<=5||page==$scope.numPages||page==1){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
             // 翻页
             $scope.onSelectPage = function (page) {
                 $scope.currentPage = page;
