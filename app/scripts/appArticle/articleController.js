@@ -7,23 +7,41 @@
 define(['common/controllers', 'domReady'],
     function (controllers, domReady) {
         controllers.controller('ArticleCtrl', function ($scope, ArticleService, $location, errMap, validation, $state, $cacheFactory) {
-            $scope.cates = [];
-            var load = function (cateId) {
-                ArticleService.getArticleList(cateId).then(function (data) {
-                    $scope.articles = data;
+            $scope.params ={};
+            $scope.point=[];
+            $scope.count = 0;
+            $scope.currentPage = 1;
+            $scope.numPages = 1;
+            $scope.pageSize = 10;
+            $scope.pages = [];
+            $scope.pageStart = ($scope.currentPage - 1) * $scope.pageSize + 1;
+            $scope.pageEnd = $scope.pageSize;
+
+            var load = function (params) {
+                params.page = $scope.currentPage;
+                params.size = $scope.pageSize;
+                ArticleService.getArticleList(params).then(function (data) {
+                    $scope.articles = data.array;
+                    $scope.count = data.counts;
+                    $scope.numPages = data.counts>0?Math.ceil(data.counts / $scope.pageSize):1;
+                    $scope.pageStart = data.counts>0?($scope.currentPage - 1) * $scope.pageSize + 1:0;
+                    $scope.pageEnd = $scope.pageSize * $scope.currentPage > data.counts ? data.counts : $scope.currentPage * $scope.pageSize;
                 }, function (err) {
                     console.log(err);
                 })
             }
-            ArticleService.getCateList().then(function (data) {
-                $scope.cates = data;
-                if(data&&data.length>0){
-                    $scope.cateId = data[0].id;
-                    load($scope.cateId);
-                }
-            }, function (err) {
-                console.log(err);
-            })
+
+            load($scope.params);
+
+            //ArticleService.getCateList().then(function (data) {
+            //    $scope.cates = data;
+            //    if(data&&data.length>0){
+            //        $scope.cateId = data[0].id;
+            //        load($scope.cateId);
+            //    }
+            //}, function (err) {
+            //    console.log(err);
+            //})
             $scope.getDetail = function (articleId) {
                 $state.go("home.articleDetail", {articleId: articleId});
             }
@@ -48,10 +66,20 @@ define(['common/controllers', 'domReady'],
                 })
             }
 
-            $scope.selectCate = function (item) {
-                $scope.cateId = item.id;
-                load($scope.cateId);
+            // 翻页
+            $scope.onSelectPage = function (page) {
+                $scope.currentPage = page;
+                load($scope.params);
+            };
+            $scope.lookUp=function(){
+                $scope.currentPage = 1;
+                load($scope.params);
             }
+
+            //$scope.selectCate = function (item) {
+            //    $scope.cateId = item.id;
+            //    load($scope.cateId);
+            //}
 
         })
 

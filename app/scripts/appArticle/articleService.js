@@ -13,14 +13,26 @@ define(['common/services','moment'],
                     return deferred.promise;
                 },
 
-                getArticleList:function(cateId){
+                //getArticleList:function(cateId){
+                //    var deferred = $q.defer();
+                //    $http.get('/api/article/getArticleList/'+cateId).success(function(res){
+                //        deferred.resolve(res);
+                //    }).error(function(err){
+                //        deferred.reject(err);
+                //    })
+                //    return deferred.promise;
+                //},
+
+                getArticleList:function(params){
                     var deferred = $q.defer();
-                    $http.get('/api/article/getArticleList/'+cateId).success(function(res){
+                    $http.post('/api/article/getArticleList',params).success(function(res){
+                        console.log(res);
                         deferred.resolve(res);
                     }).error(function(err){
                         deferred.reject(err);
                     })
                     return deferred.promise;
+
                 },
 
                 delArticle:function(data){

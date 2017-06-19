@@ -48,19 +48,7 @@
                     </div>
                     <div class="portlet-body">
                         <div id="sample_1_wrapper" class="dataTables_wrapper form-inline" role="grid">
-                            <div class="row-fluid">
 
-                                <div style="float: left;line-height: 40px;height: 40px;margin-left: 30px;font-size: 14px;">
-                                    <div style="float: left"> 分类筛选:</div>
-                                    <div ng-repeat="item in cates" style="float: left">
-
-                                        <span ng-if="item.id==cateId"  style="margin-left:20px;cursor: pointer;color: #fff;background: #4d90fe;padding: 5px;"  ng-click="selectCate(item)">{{item.name}}</span>
-                                        <span ng-if="item.id!=cateId"  ng-click="selectCate(item)" style="margin-left:20px;cursor: pointer" >{{item.name}}</span>
-                                    </div>
-                                </div>
-
-
-                            </div>
                             <table class="table table-striped table-bordered table-hover dataTable"
                                    id="sample_1"
                                    aria-describedby="sample_1_info">
@@ -87,13 +75,39 @@
                                     <td class=" "><a ng-click="getDetail(item.id)">{{item.id}}</a></td>
                                     <td class=" "><a ng-click="getDetail(item.id)">{{item.title}}</a></td>
                                     <td style="text-align: center" >
-                                        <a><div ng-click="editor($index)">修改</div></a>
+                                        <a><div ng-click="getDetail(item.id)">修改</div></a>
                                         <a><div ng-click="del($index)">删除</div></a>
                                     </td>
                                 </tr>
 
                                 </tbody>
                             </table>
+                            <div class="row-fluid">
+                                <div class="span6">
+                                    <div class="dataTables_info" id="sample_1_info">当前 {{pageStart}} 到 {{pageEnd}} 共
+                                        {{count}} 条记录
+                                    </div>
+                                </div>
+                                <div class="span6" style="text-align: center;width: 100%;">
+                                    <div class="dataTables_paginate paging_bootstrap pagination">
+                                        <pagination>
+                                            <ul num-pages="numPages" current-page="currentPage"
+                                                on-select-page="selectPage(page)">
+                                                <li class="prev" ng-class="{disabled: noPrevious()}"><a
+                                                        ng-click="selectPrevious()">&laquo; </a>
+                                                </li>
+                                                <li ng-if="judge(page,$index)" ng-repeat="page in pages"
+                                                    ng-class="{active: isActive(page)}"><a
+                                                        ng-click="selectPage(page)" ng-if="!point[$index]">{{page}}</a>
+                                                    <span ng-if="point[$index]">...</span></li>
+                                                <li class="next" ng-class="{disabled: noNext()}"><a
+                                                        ng-click="selectNext()"> &raquo; </a>
+                                                </li>
+                                            </ul>
+                                        </pagination>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

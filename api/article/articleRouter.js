@@ -12,7 +12,7 @@ function getAllList(req, res){
     })
 }
 function getArticleList(req, res){
-    articleDao.getArticleList(req.params.articleId,function(err, data){
+    articleDao.getArticleList(req.body,function(err, data){
         if (!!err) {
             console.log(err);
             return res.json(500, err);
@@ -61,7 +61,7 @@ function getArticleDetail(req,res){
     })
 }
 
-router.get("/getArticleList/:articleId",getArticleList);
+router.post("/getArticleList",getArticleList);
 router.get("/all",getAllList);
 router.get("/getArticleDetail/:articleId",getArticleDetail);
 router.post("/addArticle",addArticle);

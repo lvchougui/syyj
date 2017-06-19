@@ -2374,3 +2374,8 @@
        index_img: 'http://orhnya4jo.bkt.clouddn.com/b620c2fd384f0c778b01bc02823befde.JPG',
        img_href: 'http://localhost:3008/',
        master_desc: 'cvxcvxc发送到发送到cxgvx' } ] }
+[2017-06-19 16:13:04.655] [INFO] normal - { result: 
+   [ RowDataPacket {
+       index_img: 'http://orhnya4jo.bkt.clouddn.com/b620c2fd384f0c778b01bc02823befde.JPG',
+       img_href: 'http://localhost:3008/',
+       master_desc: 'cvxcvxc发送到发送到cxgvx' } ] }
