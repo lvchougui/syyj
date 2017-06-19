@@ -147,11 +147,39 @@ define(['app'], function (app) {
                     }
                 })
 
-                .state("home.companyGoods", {
-                    url: "/companyGoods",
+                .state("home.article", {
+                    url: "/article",
                     views: {
                         '': {
-                            templateUrl: 'views/companyGoods/home.companyGoods.html',
+                            templateUrl: 'views/tplArticle/articleList.html',
+                            controller: 'ArticleCtrl'
+                        }, 'sidebar': {
+                            templateUrl: 'views/common/sidebar.html'
+                        },
+                        'footer': {
+                            templateUrl: 'views/common/footer.html'
+                        }
+                    }
+                })
+                .state("home.articleDetail", {
+                    url: "/articleDetail/{articleId}",
+                    views: {
+                        '': {
+                            templateUrl: 'views/tplArticle/articleDetail.html',
+                            controller: 'ArticleDetailCtrl'
+                        }, 'sidebar': {
+                            templateUrl: 'views/common/sidebar.html'
+                        },
+                        'footer': {
+                            templateUrl: 'views/common/footer.html'
+                        }
+                    }
+                })
+                .state("home.productList", {
+                    url: "/productList",
+                    views: {
+                        '': {
+                            templateUrl: '../views/tplProduct/productList.html',
                             controller: 'CompanyGoodsCtrl'
                         }, 'sidebar': {
                             templateUrl: 'views/common/sidebar.html'
@@ -161,11 +189,11 @@ define(['app'], function (app) {
                         }
                     }
                 })
-                .state("home.companyGoodsDetail", {
-                    url: "/companyGoodsDetail/{goods_id}",
+                .state("home.productDetail", {
+                    url: "/productDetail/{productId}",
                     views: {
                         '': {
-                            templateUrl: 'views/companyGoods/companyGoodDetail.html',
+                            templateUrl: 'views/tplProduct/productDetail.html',
                             controller: 'CompanyGoodsDetailCtrl'
                         }, 'sidebar': {
                             templateUrl: 'views/common/sidebar.html'
@@ -179,7 +207,7 @@ define(['app'], function (app) {
                     url: "/updateInformation",
                     views: {
                         '': {
-                            templateUrl: 'views/companyGoods/updateInformation.html',
+                            templateUrl: '../views/tplProduct/updateInformation.html',
                             controller:'updateCtrl'
                         }, 'sidebar': {
                             templateUrl: 'views/common/sidebar.html'
@@ -217,8 +245,8 @@ define(['app'], function (app) {
                         }
                     }
                 })
-                .state("home.delivery_time", {
-                    url: "/deliveryTime",
+                .state("home.cateStore", {
+                    url: "/cateStore",
                     views: {
                         '': {
                             templateUrl: 'views/tplDeliveryTime/home.delivery_time.html',

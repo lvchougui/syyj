@@ -12,7 +12,7 @@
                 <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                 <h3 class="page-title">
 
-                    配送时间管理
+                    FAQ分类管理
 
                 </h3>
 
@@ -24,7 +24,7 @@
                         <i class="icon-angle-right"></i>
                     </li>
 
-                    <li><a href="#">配送时间列表</a></li>
+                    <li><a href="#">分类列表</a></li>
                 </ul>
             </div>
 
@@ -35,9 +35,9 @@
                 <!-- BEGIN EXAMPLE TABLE PORTLET-->
                 <div class="portlet box grey">
                     <div class="portlet-title">
-                        <div class="caption"><i class="icon-globe"></i>配送时间列表</div>
+                        <div class="caption"><i class="icon-globe"></i>分类列表</div>
                         <div class="actions">
-                            <a ui-sref="home.addDeliveryTime" class="btn blue"><i class="icon-pencil"></i> 新增配送时间</a>
+                            <a ui-sref="home.addDeliveryTime" class="btn blue"><i class="icon-pencil"></i> 新增分类</a>
                         </div>
                     </div>
 
@@ -53,10 +53,10 @@
                                 <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample_1"
                                     rowspan="1"
                                     colspan="1" aria-label="Username: activate to sort column ascending"
-                                        >配送地区
+                                        >分类id
                                 </th>
                                 <th class="hidden-480 sorting_disabled" role="columnheader" rowspan="1" colspan="1"
-                                    aria-label="Joined">配送时间
+                                    aria-label="Joined">分类名称
                                 </th>
 
                                 <th class="hidden-480 sorting_disabled" role="columnheader" rowspan="1" colspan="1"
@@ -66,10 +66,10 @@
                             </thead>
 
                             <tbody role="alert" aria-live="polite" aria-relevant="all">
-                            <tr class="gradeX odd" ng-repeat="item in timeList"
+                            <tr class="gradeX odd" ng-repeat="item in cateList"
                                 ng-class="{'odd':$odd,'even':$even}"ng-if="item.status!=0">
-                                <td class=" ">{{item.district_names}}</td>
-                                <td class="center hidden-480 ">{{item.delivery_time}}</td>
+                                <td class=" ">{{item.id}}</td>
+                                <td class="center hidden-480 ">{{item.name}}</td>
                                 <td style="text-align: center" class="center hidden-480 ">
                                     <a><div ng-click="del($index)" style="float: left;margin-left: 10px;" ng-show="item.status==1">删除</div></a>
                                 </td>
@@ -93,10 +93,10 @@
                 <h4 class="modal-title">操作提醒</h4>
             </div>
             <div class="modal-body">
-                确认删除此送货时间？
+                确认删除此分类？
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-red" ng-click="delDeliveryTime()">确认</button>
+                <button type="button" class="btn btn-red" ng-click="delCate()">确认</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
             </div>
         </div>

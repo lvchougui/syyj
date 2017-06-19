@@ -11,7 +11,7 @@ define(['angular', 'common/controllers',
     'common/directives'
 ], function (angular) {
     return angular.module('MyApp', ['controllers', 'services',
-            'filters', 'directives', 'ui.router', 'ngFileUpload'
+            'filters', 'directives', 'ui.router', 'ngFileUpload','ng.ueditor'
         ]).config(function ($httpProvider) {
             $httpProvider.interceptors.push('TokenInterceptor');
         })

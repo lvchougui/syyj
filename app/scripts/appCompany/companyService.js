@@ -1,16 +1,3 @@
-/**
- * Created by wei on 16/1/12.
- */
-
-//HEAD
-/*define(['common/services','moment'],
-    function (services,moment) {
-        services.factory('CompanyService', function ($http,$q,Upload,$cacheFactory) {
-            var cache =$cacheFactory('cache1');
-            return{
-                getCache:function(){
-                    return cache;*/
-//
 define(['common/services','moment'],
     function (services,moment) {
         services.factory('CompanyService', function ($http,$q,Upload,$cacheFactory) {
@@ -21,29 +8,39 @@ define(['common/services','moment'],
                     return cache;
                 },
 
-                getAllDeliveryTemplate:function(){
+                getCateList:function(){
                     var deferred = $q.defer();
-                    $http.get('/companyPc/api/delivery_charge/getAllDeliveryTemplate/'+localStorage.company_id).success(function(data){
-                        deferred.resolve(data);
-                    }).error(function(err){
-                        deferred.reject(err);
-                    })
-                    return deferred.promise;
-//yunfei
-                },
-                getCompanyGoods:function(data){
-                    var deferred = $q.defer();
-                    data.company_id=localStorage.company_id;
-                    $http.post('/companyPc/api/goods/getGoods',data).success(function(res){
+                    $http.get('/api/cate/getCateList').success(function(res){
                         deferred.resolve(res);
                     }).error(function(err){
                         deferred.reject(err);
                     })
                     return deferred.promise;
                 },
-                getCompanyGoodsDetail:function(data){
+
+                getArticleList:function(cateId){
                     var deferred = $q.defer();
-                    $http.get('/companyPc/api/goods/getGoodsDetail/'+data.company_goods_id).success(function(res){
+                    $http.get('/api/article/getArticleList/'+cateId).success(function(res){
+                        deferred.resolve(res);
+                    }).error(function(err){
+                        deferred.reject(err);
+                    })
+                    return deferred.promise;
+                },
+
+                delArticle:function(data){
+                    var deferred = $q.defer();
+                    $http.put('/api/article/delArticle/'+data).success(function(res){
+                        deferred.resolve(res);
+                    }).error(function(err){
+                        deferred.reject(err);
+                    })
+                    return deferred.promise;
+                },
+
+                getArticleDetail:function(data){
+                    var deferred = $q.defer();
+                    $http.get('/api/article/getArticleDetail/'+data).success(function(res){
                         console.log(res);
                         deferred.resolve(res);
                     }).error(function(err){
@@ -51,63 +48,28 @@ define(['common/services','moment'],
                     })
                     return deferred.promise;
                 },
-                chgCompanyGoodsStatue:function(data){
-                    var deferred = $q.defer();
-                    $http.put('/companyPc/api/goods/updateGoodsStatue/'+data.company_goods_id+'/'+data.company_goods_status_id+'/'+data.statue).success(function(res){
-                        deferred.resolve(res);
-                    }).error(function(err){
-                        deferred.reject(err);
-                    })
-                    return deferred.promise;
-                },
 
-                chgComanyGoodsSku:function(data){
+                updateArticle:function(data){
                     var deferred = $q.defer();
-                    $http.post('/companyPc/api/goods/updateGoodsSku',data).success(function(res){
+                    $http.post('/api/article/updateArticle',data).success(function(res){
                         deferred.resolve(res);
                     }).error(function(err){
                         deferred.reject(err);
                     })
                     return deferred.promise;
                 },
-
-                chgCompanyGoods:function(data){
-                    var deferred = $q.defer();
-                    $http.post('/companyPc/api/goods/updateGoods',data).success(function(res){
-                        deferred.resolve(res);
-                    }).error(function(err){
-                        deferred.reject(err);
-                    })
-                    return deferred.promise;
-                },
-                addCompanyGoods:function(data){
+                addArticle:function(data){
                     console.log(data);
                     var deferred = $q.defer();
-                    $http.post('/companyPc/api/goods/addGoods',data).success(function(res){
+                    $http.post('/api/article/addArticle',data).success(function(res){
                         deferred.resolve(res);
                     }).error(function(err){
                         deferred.reject(err);
                     })
                     return deferred.promise;
                 },
-                getCategories:function(data){
-                    var deferred = $q.defer();
-                    $http.get('/companyPc/api/goods/getCategory').success(function(res){
-                        deferred.resolve(res);
-                    }).error(function(err){
-                        deferred.reject(err);
-                    })
-                    return deferred.promise;
-                },
-                getGoodsStatue:function(data){
-                    var deferred = $q.defer();
-                    $http.get('/companyPc/api/goods/getGoodsStatue').success(function(res){
-                        deferred.resolve(res);
-                    }).error(function(err){
-                        deferred.reject(err);
-                    })
-                    return deferred.promise;
-                },
+
+
                 resize: function (data,width,height,quantity,ratio) {
                     console.log(ratio);
                     var deferred = $q.defer();
