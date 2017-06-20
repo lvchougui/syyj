@@ -6,12 +6,12 @@
 
         <!-- BEGIN PAGE HEADER-->
 
-            <div class="row-fluid">
+        <div class="row-fluid">
             <div class="span12">
 
                 <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                 <h3 class="page-title">
-                    玉雕文化——文章详情
+                    证书管理——证书详情
                 </h3>
 
                 <ul class="breadcrumb">
@@ -21,7 +21,7 @@
                         <i class="icon-angle-right"></i>
                     </li>
                     <li>
-                        <a ui-sref="home.article">玉雕文化</a>
+                        <a ui-sref="home.cert">证书管理</a>
                         <i class="icon-angle-right"></i>
                     </li>
                     <li>详情</li>
@@ -46,7 +46,7 @@
                         <form  class="form-horizontal form-bordered"  enctype="multipart/form-data" >
 
                             <div class="control-group">
-                                <label class="control-label">文章首图</label>
+                                <label class="control-label">证书图片</label>
                                 <div class="controls">
                                     <img  ngf-thumbnail="covers"  ngf-pattern=="image/*" style="height: 300px" ng-if="covers">
                                     <img src="../../media/image/image5.jpg" style="height: 300px" ng-if="!covers" alt="图片尺寸最好为750*300(宽*高)">
@@ -57,27 +57,30 @@
                             </div>
                             <div class="control-group">
                                 <label class="control-label">
-                                    文章标题</label>
+                                    证书编码</label>
 
                                 <div class="controls">
-                                    <input value="{{article.title}}" ng-model="article.title" placeholder="请输入文章标题" style="width: 100%;border: none">
+                                    <input value="{{cert.cert_code}}" ng-model="cert.cert_code" placeholder="请输入证书编码" style="width: 100%;border: none">
 
                                 </div>
                             </div>
                             <div class="control-group">
                                 <label class="control-label">
-                                    文章简介</label>
+                                    证书关联作品id</label>
 
                                 <div class="controls">
-                                    <textarea value="{{article.summary}}" ng-model="article.summary" placeholder="请输入文章简介" style="width: 98%;height: 100px;" />
+                                    <input value="{{cert.r_prod}}" ng-model="cert.r_prod" placeholder="请输入作品id" style="width: 100%;border: none">
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">文章内容</label>
+                                <label class="control-label">
+                                    作品名称</label>
+
                                 <div class="controls">
-                                    <div class="ueditor" ng-model="content"  ready="ready" style="width: 100%;height: 400px;"></div>
+                                    <input value="{{product.name}}" ng-model="product.name" placeholder="作品名称，无须手动输入" readonly style="width: 100%;border: none">
                                 </div>
                             </div>
+
                             <div class="form-actions">
                                 <button type="submit" class="btn blue" ng-click="save()">保存</button>
                             </div>

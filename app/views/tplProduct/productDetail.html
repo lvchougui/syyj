@@ -6,12 +6,12 @@
 
         <!-- BEGIN PAGE HEADER-->
 
-            <div class="row-fluid">
+        <div class="row-fluid">
             <div class="span12">
 
                 <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                 <h3 class="page-title">
-                    文章详情
+                    作品管理——作品详情
                 </h3>
 
                 <ul class="breadcrumb">
@@ -21,7 +21,7 @@
                         <i class="icon-angle-right"></i>
                     </li>
                     <li>
-                        <a ui-sref="home.article">文章详情</a>
+                        <a ui-sref="home.product">作品管理</a>
                         <i class="icon-angle-right"></i>
                     </li>
                     <li>详情</li>
@@ -45,14 +45,14 @@
 
                         <form  class="form-horizontal form-bordered"  enctype="multipart/form-data" >
 
-
                             <div class="control-group">
-                                <label class="control-label">
-                                    文章标题</label>
-
+                                <label class="control-label">作品首图</label>
                                 <div class="controls">
-                                    <input value="{{article.title}}" ng-model="article.title" placeholder="请输入文章标题" style="width: 100%;border: none">
-
+                                    <img  ngf-thumbnail="covers"  ngf-pattern=="image/*" style="height: 300px" ng-if="covers">
+                                    <img src="../../media/image/image5.jpg" style="height: 300px" ng-if="!covers" alt="图片尺寸最好为750*300(宽*高)">
+                                    <div style="margin-top:20px">
+                                        <button type="submit" ngf-select ng-keep="true" ngf-change="upload($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)" class="btn blue">选择</button>
+                                    </div>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -65,11 +65,57 @@
                                 </div>
                             </div>
                             <div class="control-group">
-                                <label class="control-label">文章内容</label>
+                                <label class="control-label">
+                                    作品名称</label>
                                 <div class="controls">
-                                    <div class="ueditor" ng-model="content"  ready="ready" style="width: 100%;height: 500px;"></div>
+                                    <input value="{{product.name}}" ng-model="product.name" placeholder="请输入作品名称" style="width: 100%;border: none">
                                 </div>
                             </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    作品简介</label>
+                                <div class="controls">
+                                    <input value="{{product.summary}}" ng-model="product.summary" placeholder="请输入作品简介" style="width: 100%;border: none">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    材质</label>
+                                <div class="controls">
+                                    <input value="{{product.p_material}}" ng-model="product.p_material" placeholder="请输入作品材质" style="width: 100%;border: none">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    尺寸</label>
+                                <div class="controls">
+                                    <input value="{{product.p_size}}" ng-model="product.p_size" placeholder="请输入作品尺寸" style="width: 100%;border: none">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    重量</label>
+                                <div class="controls">
+                                    <input value="{{product.p_weight}}" ng-model="product.p_weight" placeholder="请输入作品重量" style="width: 100%;border: none">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    是否售出</label>
+                                <div class="controls">
+                                    <div ng-repeat="item in soldStatus" style="float: left;">
+                                        <span ng-if="item.id==soldType"  style="margin-left:20px;cursor: pointer;color: #fff;background: #4d90fe;padding: 5px;"  ng-click="selectSold(item)">{{item.name}}</span>
+                                        <span ng-if="item.id!=soldType"  ng-click="selectSold(item)" style="margin-left:20px;cursor: pointer" >{{item.name}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">作品详情</label>
+                                <div class="controls">
+                                    <div class="ueditor" ng-model="content"  ready="ready" style="width: 100%;height: 400px;"></div>
+                                </div>
+                            </div>
+
                             <div class="form-actions">
                                 <button type="submit" class="btn blue" ng-click="save()">保存</button>
                             </div>

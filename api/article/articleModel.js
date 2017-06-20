@@ -44,7 +44,7 @@ articleDao.getAll = function(cb){
 }
 
 articleDao.getArticleList = function(data,cb){
-    var sql = 'select * from tb_article where status = 1 limit ?,?';
+    var sql = 'select * from tb_article where status = 1 order by id desc limit ?,?';
     var sqlCount ='select count(id) as number from tb_article where status = 1';
     sqlClient.query(sql, [parseInt((data.page - 1) * data.size), parseInt(data.size)], function(err, data){
         if(err){
@@ -80,10 +80,12 @@ articleDao.addArticle = function(data,cb){
     var sql = '';
     var fields = [
         'title',
+        'cover',
         'detail',
-        'cateId'
+        'summary'
     ];
     var values=[
+        '?',
         '?',
         '?',
         '?'
@@ -92,7 +94,7 @@ articleDao.addArticle = function(data,cb){
     var sqlInsert = 'insert into tb_article ('+fields.join(',')+') values ('+values.join(',') +')' ;
     // 拼接字符串
     sql += sqlInsert;
-    sqlClient.query(sql,[data.title,data.detail,data.cateId],function(err, rows){
+    sqlClient.query(sql,[data.title,data.cover,data.detail,data.summary],function(err, rows){
         if(err){
             return  cb&&cb(err, null);
         }else{
@@ -109,12 +111,13 @@ articleDao.addArticle = function(data,cb){
 articleDao.updateArticle = function(data,cb){
     var fields = [
         'title = ?',
+        'cover = ?',
         'detail = ?',
-        'cateId = ?'
+        'summary = ?'
         ]
     //var desc = html_encode(data.detail);
     var sql = 'update tb_article set '+fields.join(',')+' where id = '+data.id;
-    sqlClient.query(sql,[data.title,data.detail,data.cateId],function(err, data){
+    sqlClient.query(sql,[data.title,data.cover,data.detail,data.summary],function(err, data){
         if(err){
             return  cb&&cb(err, null);
         }

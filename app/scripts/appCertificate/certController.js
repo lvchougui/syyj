@@ -6,7 +6,7 @@
 
 define(['common/controllers', 'domReady'],
     function (controllers, domReady) {
-        controllers.controller('ArticleCtrl', function ($scope, ArticleService, $location, errMap, validation, $state, $cacheFactory) {
+        controllers.controller('CertCtrl', function ($scope, CertService, $location, errMap, validation, $state, $cacheFactory) {
             $scope.params = {};
             $scope.point = [];
             $scope.count = 0;
@@ -20,8 +20,9 @@ define(['common/controllers', 'domReady'],
             var load = function (params) {
                 params.page = $scope.currentPage;
                 params.size = $scope.pageSize;
-                ArticleService.getArticleList(params).then(function (data) {
-                    $scope.articles = data.array;
+                params.cert_code = $scope.certNum;
+                CertService.getCertList(params).then(function (data) {
+                    $scope.certs = data.array;
                     $scope.count = data.counts;
                     $scope.numPages = data.counts > 0 ? Math.ceil(data.counts / $scope.pageSize) : 1;
                     $scope.pageStart = data.counts > 0 ? ($scope.currentPage - 1) * $scope.pageSize + 1 : 0;
@@ -33,32 +34,25 @@ define(['common/controllers', 'domReady'],
 
             load($scope.params);
 
-            //ArticleService.getCateList().then(function (data) {
-            //    $scope.cates = data;
-            //    if(data&&data.length>0){
-            //        $scope.cateId = data[0].id;
-            //        load($scope.cateId);
-            //    }
-            //}, function (err) {
-            //    console.log(err);
-            //})
-            $scope.getDetail = function (articleId) {
-                $state.go("home.articleDetail", {articleId: articleId});
+            $scope.searchCert = function(){
+                load($scope.params);
+            }
+
+            $scope.getDetail = function (certId) {
+                $state.go("home.certDetail", {certId: certId});
             }
 
             var item_index;
             $scope.del = function (index) {
-                $scope.notifyContent = '确定要删除这篇文章？';
+                $scope.notifyContent = '确定要删除这个证书？';
                 item_index = index;
                 $('#delModal').modal();
             }
 
-            $scope.deleteArticle = function () {
-                var articleId = $scope.articles[item_index].id
-
-                //console.log(delJson)
-                ArticleService.delArticle(articleId).then(function (data) {
-                    $scope.articles[item_index].status = 0;
+            $scope.deleteCert = function () {
+                var certId = $scope.certs[item_index].id
+                CertService.delCert(certId).then(function (data) {
+                    $scope.certs[item_index].status = 0;
                     console.log("删除成功");
                     $('#delModal').modal('hide');
                 }, function (err) {
@@ -96,18 +90,19 @@ define(['common/controllers', 'domReady'],
 
         })
 
-        controllers.controller('ArticleDetailCtrl', function ($scope, ArticleService, ProductService, $stateParams, errMap, $state, validation, $q) {
+        controllers.controller('CertDetailCtrl', function ($scope, CertService, ProductService, $stateParams, errMap, $state, validation, $q) {
             $scope.files = [];
             $scope.covers = '';
             $scope.uploadImg = '';
-            $scope.articleId = $stateParams.articleId;
-            $scope.article = {};
+            $scope.certId = $stateParams.certId;
+            $scope.cert = {};
 
-            if ($scope.articleId != 0) {
-                ArticleService.getArticleDetail($scope.articleId).then(function (data) {
+            if ($scope.certId != 0) {
+                CertService.getCertDetail($scope.certId).then(function (data) {
                     console.log(data);
-                    $scope.article = data;
-                    $scope.covers = $scope.article.cover;
+                    $scope.cert = data.cert;
+                    $scope.product = data.product;
+                    $scope.covers = $scope.cert.cover;
                     $scope.cateId = data.cateId;
                     $scope.content = data.detail;
                 })
@@ -124,49 +119,43 @@ define(['common/controllers', 'domReady'],
                 if ($file) {
                     $scope.covers = $file;
                     $scope.uploadImg = $file;
-                    $scope.article.cover = $scope.covers;
-                    if (Object.prototype.toString.call($scope.article.cover) == "[object String]") {
-                        waitDelImg.img.push($scope.article.cover);
+                    $scope.cert.cover = $scope.covers;
+                    if (Object.prototype.toString.call($scope.cert.cover) == "[object String]") {
+                        waitDelImg.img.push($scope.cert.cover);
                         console.log('ds')
                     }
                 }
             }
 
             $scope.save = function () {
-                console.log($scope.content);
-                if (!$scope.article.cover || $scope.article.cover == '') {
-                    $scope.notifyContent = '请上传文章首图';
+                if (!$scope.cert.cover || $scope.cert.cover == '') {
+                    $scope.notifyContent = '请上传证书图';
                     $('#notifyModal').modal();
                     return;
                 }
-                if ($scope.article.summary == '') {
-                    $scope.notifyContent = '请输入文章简介';
+                if (!$scope.cert.cert_code||$scope.cert.cert_code == '') {
+                    $scope.notifyContent = '请输入证书编号';
                     $('#notifyModal').modal();
                     return;
                 }
-                if (!$scope.content || $scope.content.length == 0) {
-                    $scope.notifyContent = '请输入文章内容';
-                    $('#notifyModal').modal();
-                    return
-                }
-                $scope.article.detail = $scope.content;
+
                 if($scope.uploadImg&&$scope.uploadImg!=''){
                     var uploadImgPromise = ProductService.uploadImg(imgUploadIP,  $scope.covers);
                     uploadImgPromise.then(function (res) {
-                        console.log(res);
-                        $scope.article.cover = res.data.path;
-                        if ($scope.articleId != 0) {
-                            $scope.article.id = $scope.articleId;
-                            ArticleService.updateArticle($scope.article).then(function (data) {
+                        console.log($scope.cert)
+                        $scope.cert.cover = res.data.path;
+                        if ($scope.certId != 0) {
+                            $scope.cert.id = $scope.certId;
+                            CertService.updateCert($scope.cert).then(function (data) {
                                 console.log(data)
-                                $state.go('home.article');
+                                $state.go('home.cert');
                             }, function (err) {
                                 alert(err);
                             })
                         } else {
-                            ArticleService.addArticle($scope.article).then(function (data) {
+                            CertService.addCert($scope.cert).then(function (data) {
                                 console.log(data)
-                                $state.go('home.article');
+                                $state.go('home.cert');
                             }, function (err) {
                                 alert(err);
                             })
@@ -177,30 +166,23 @@ define(['common/controllers', 'domReady'],
                         console.log(update);
                     });
                 }else{
-                    if ($scope.articleId != 0) {
-                        $scope.article.id = $scope.articleId;
-                        ArticleService.updateArticle($scope.article).then(function (data) {
+                    if ($scope.certId != 0) {
+                        $scope.cert.id = $scope.certId;
+                        CertService.updateCert($scope.cert).then(function (data) {
                             console.log(data)
-                            $state.go('home.article');
+                            $state.go('home.cert');
                         }, function (err) {
                             alert(err);
                         })
                     } else {
-                        ArticleService.addArticle($scope.article).then(function (data) {
+                        CertService.addCert($scope.cert).then(function (data) {
                             console.log(data)
-                            $state.go('home.article');
+                            $state.go('home.cert');
                         }, function (err) {
                             alert(err);
                         })
                     }
                 }
-
-
-            }
-
-            function addSave(){
-
             }
         });
-
     });

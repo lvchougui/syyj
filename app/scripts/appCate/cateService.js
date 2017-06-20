@@ -2,7 +2,7 @@
 
 define(['common/services'],
     function (services) {
-        services.factory('DeliveryTimeService', function ($http,$q,Upload) {
+        services.factory('CateService', function ($http,$q,Upload) {
             return{
                 getCateList:function(){
                     var deferred = $q.defer();

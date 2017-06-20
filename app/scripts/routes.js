@@ -147,6 +147,34 @@ define(['app'], function (app) {
                     }
                 })
 
+                .state("home.cert", {
+                    url: "/cert",
+                    views: {
+                        '': {
+                            templateUrl: 'views/tplCertificate/certList.html',
+                            controller: 'CertCtrl'
+                        }, 'sidebar': {
+                            templateUrl: 'views/common/sidebar.html'
+                        },
+                        'footer': {
+                            templateUrl: 'views/common/footer.html'
+                        }
+                    }
+                })
+                .state("home.certDetail", {
+                    url: "/certDetail/{certId}",
+                    views: {
+                        '': {
+                            templateUrl: 'views/tplCertificate/certDetail.html',
+                            controller: 'CertDetailCtrl'
+                        }, 'sidebar': {
+                            templateUrl: 'views/common/sidebar.html'
+                        },
+                        'footer': {
+                            templateUrl: 'views/common/footer.html'
+                        }
+                    }
+                })
                 .state("home.article", {
                     url: "/article",
                     views: {
@@ -180,7 +208,7 @@ define(['app'], function (app) {
                     views: {
                         '': {
                             templateUrl: '../views/tplProduct/productList.html',
-                            controller: 'CompanyGoodsCtrl'
+                            controller: 'ProductListCtrl'
                         }, 'sidebar': {
                             templateUrl: 'views/common/sidebar.html'
                         },
@@ -194,7 +222,7 @@ define(['app'], function (app) {
                     views: {
                         '': {
                             templateUrl: 'views/tplProduct/productDetail.html',
-                            controller: 'CompanyGoodsDetailCtrl'
+                            controller: 'ProductDetailCtrl'
                         }, 'sidebar': {
                             templateUrl: 'views/common/sidebar.html'
                         },
@@ -245,12 +273,12 @@ define(['app'], function (app) {
                         }
                     }
                 })
-                .state("home.cateStore", {
-                    url: "/cateStore",
+                .state("home.cate", {
+                    url: "/cate",
                     views: {
                         '': {
-                            templateUrl: 'views/tplDeliveryTime/home.delivery_time.html',
-                            controller: 'DeliveryTimeCtrl'
+                            templateUrl: 'views/tplCate/cateList.html',
+                            controller: 'CateCtrl'
                         }, 'sidebar': {
                             templateUrl: 'views/common/sidebar.html'
                         },
@@ -259,12 +287,12 @@ define(['app'], function (app) {
                         }
                     }
                 })
-                .state("home.addDeliveryTime", {
-                    url: "/addDeliveryTime",
+                .state("home.addCate", {
+                    url: "/addCate",
                     views: {
                         '': {
-                            templateUrl: 'views/tplDeliveryTime/addDeliveryTime.html',
-                            controller: 'AddDeliveryTimeCtrl'
+                            templateUrl: 'views/tplCate/addCate.html',
+                            controller: 'AddCateCtrl'
                         }, 'sidebar': {
                             templateUrl: 'views/common/sidebar.html'
                         },

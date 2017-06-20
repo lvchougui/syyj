@@ -1,6 +1,6 @@
 define(['common/controllers', 'domReady'],
     function (controllers, domReady) {
-        controllers.controller('PreStoreCtrl',function ($scope,StoreService,CompanyService,$stateParams,errMap,$state,validation,$q) {
+        controllers.controller('PreStoreCtrl',function ($scope,StoreService,ProductService,$stateParams,errMap,$state,validation,$q) {
             $scope.files=[];
             $scope.covers='';
             $scope.uploadImg='';
@@ -49,7 +49,7 @@ define(['common/controllers', 'domReady'],
             $scope.save = function () {
                 $("button").attr("disabled", "disabled");  //将所有button的disable属性值设置为disable
 
-                if ($scope.configs.img_href == 0) {
+                if (!$scope.configs.img_href||$scope.configs.img_href=='') {
                     alert('请填写首页大图链接');
                     return;
                 }
@@ -64,7 +64,7 @@ define(['common/controllers', 'domReady'],
                 console.log('保存图片');
 
                 if($scope.uploadImg&&$scope.uploadImg!=''){
-                    var uploadImgPromise = CompanyService.uploadImg(imgUploadIP,  $scope.covers);
+                    var uploadImgPromise = ProductService.uploadImg(imgUploadIP,  $scope.covers);
                     uploadImgPromise.then(function (res) {
                         console.log(res);
                         $scope.configs.index_img = res.data.path;

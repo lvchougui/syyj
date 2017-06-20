@@ -2,9 +2,9 @@
 
 define(['common/controllers', 'domReady'],
     function (controllers, domReady) {
-        controllers.controller('DeliveryTimeCtrl', function ($scope, DeliveryTimeService, validation, errMap, $state) {
+        controllers.controller('CateCtrl', function ($scope, CateService, validation, errMap, $state) {
             var load = function () {
-                DeliveryTimeService.getCateList().then(function (data) {
+                CateService.getCateList().then(function (data) {
                     $scope.cateList = data;
                     console.log(data);
                 }, function (err) {
@@ -22,7 +22,7 @@ define(['common/controllers', 'domReady'],
                     cateId: $scope.cateList[item_index].id
                 }
                 //console.log(delJson)
-                DeliveryTimeService.delCate(delJson).then(function (data) {
+                CateService.delCate(delJson).then(function (data) {
                     $scope.cateList[item_index].status = 0;
                     console.log("删除成功");
                     $('#deleteModal').modal('hide');
@@ -32,7 +32,7 @@ define(['common/controllers', 'domReady'],
             }
         });
 
-        controllers.controller('AddDeliveryTimeCtrl', function ($scope, DeliveryTimeService,CompanyService, validation, errMap, $state) {
+        controllers.controller('AddCateCtrl', function ($scope, CateService,ProductService, validation, errMap, $state) {
             var cancelPil = function () {
                 if (this && this.stopPropagation) {
                     console.log("取消冒泡！！");
@@ -53,9 +53,9 @@ define(['common/controllers', 'domReady'],
                 var data = {
                     cateName:$scope.cateName
                 }
-                DeliveryTimeService.addCate(data).then(function (data) {
+                CateService.addCate(data).then(function (data) {
                     //console.log(data);
-                    $state.go('home.cateStore');
+                    $state.go('home.cate');
                 }, function (err) {
                     console.log(err);
                 })

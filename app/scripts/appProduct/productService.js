@@ -1,12 +1,7 @@
 define(['common/services','moment'],
     function (services,moment) {
-        services.factory('CompanyService', function ($http,$q,Upload,$cacheFactory) {
-            var cache =$cacheFactory('cache1');
+        services.factory('ProductService', function ($http,$q,Upload,$cacheFactory) {
             return{
-
-                getCache:function() {
-                    return cache;
-                },
 
                 getCateList:function(){
                     var deferred = $q.defer();
@@ -18,9 +13,9 @@ define(['common/services','moment'],
                     return deferred.promise;
                 },
 
-                getArticleList:function(cateId){
+                getProductList:function(params){
                     var deferred = $q.defer();
-                    $http.get('/api/article/getArticleList/'+cateId).success(function(res){
+                    $http.post('/api/product/getProductList',params).success(function(res){
                         deferred.resolve(res);
                     }).error(function(err){
                         deferred.reject(err);
@@ -28,9 +23,9 @@ define(['common/services','moment'],
                     return deferred.promise;
                 },
 
-                delArticle:function(data){
+                delProduct:function(data){
                     var deferred = $q.defer();
-                    $http.put('/api/article/delArticle/'+data).success(function(res){
+                    $http.put('/api/product/delProduct/'+data).success(function(res){
                         deferred.resolve(res);
                     }).error(function(err){
                         deferred.reject(err);
@@ -38,9 +33,19 @@ define(['common/services','moment'],
                     return deferred.promise;
                 },
 
-                getArticleDetail:function(data){
+                soldProduct:function(data){
                     var deferred = $q.defer();
-                    $http.get('/api/article/getArticleDetail/'+data).success(function(res){
+                    $http.put('/api/product/soldProduct/'+data).success(function(res){
+                        deferred.resolve(res);
+                    }).error(function(err){
+                        deferred.reject(err);
+                    })
+                    return deferred.promise;
+                },
+
+                getProductDetail:function(data){
+                    var deferred = $q.defer();
+                    $http.get('/api/product/getProductDetail/'+data).success(function(res){
                         console.log(res);
                         deferred.resolve(res);
                     }).error(function(err){
@@ -49,19 +54,19 @@ define(['common/services','moment'],
                     return deferred.promise;
                 },
 
-                updateArticle:function(data){
+                updateProduct:function(data){
                     var deferred = $q.defer();
-                    $http.post('/api/article/updateArticle',data).success(function(res){
+                    $http.post('/api/product/updateProduct',data).success(function(res){
                         deferred.resolve(res);
                     }).error(function(err){
                         deferred.reject(err);
                     })
                     return deferred.promise;
                 },
-                addArticle:function(data){
+                addProduct:function(data){
                     console.log(data);
                     var deferred = $q.defer();
-                    $http.post('/api/article/addArticle',data).success(function(res){
+                    $http.post('/api/product/addProduct',data).success(function(res){
                         deferred.resolve(res);
                     }).error(function(err){
                         deferred.reject(err);
