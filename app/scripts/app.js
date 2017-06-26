@@ -2,7 +2,7 @@
 
 var IconIp='http://127.0.0.1:4001/';
 var ImgIp='http://127.0.0.1:4000/';
-var imgUploadIP='http://127.0.0.1:4000/api/attachment/upload';
+var imgUploadIP='http://47.94.206.22:4000/api/attachment/upload';
 var iconUploadIP='http://115.159.81.112:4001/api/attachment/upload';
 var localImageIp="http://115.159.81.112:3008/media"
 var localExcelIp="http://115.159.81.112:3008"

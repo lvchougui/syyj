@@ -117,7 +117,7 @@ define(['app'], function (app) {
                         }
                     }
                 })
-               
+
                 .state("home.operateInstruction", {
                     url: "/operateInstruction",
                     views: {
