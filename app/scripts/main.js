@@ -7,22 +7,22 @@ require.config({
         'domReady': 'lib/domReady',
         'moment': 'lib/bower_components/moment/min/moment.min',
         'bootstrap': 'lib/bower_components/bootstrap/dist/js/bootstrap',
-        'datepicker-locale': 'lib/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min',
-        'datetimepicker-locale': 'lib/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN',
-        'datepicker': 'lib/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker',
-        'datetimepicker': 'lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker',
+        //'datepicker-locale': 'lib/bower_components/bootstrap-datepicker/dist/locales/bootstrap-datepicker.zh-CN.min',
+        //'datetimepicker-locale': 'lib/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN',
+        //'datepicker': 'lib/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker',
+        //'datetimepicker': 'lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker',
         'ng-file-upload': 'lib/ng-file-upload',
         'multiselect': 'lib/bower_components/bootstrap-multiselect/dist/js/bootstrap-multiselect',
         'config': 'common/config',
-        'siteApp': '../media/js/app',
+        //'siteApp': '../media/js/app',
         'login': '../media/js/login',
         'uniform': '../media/js/jquery.uniform.min',
         'validate': '../media/js/jquery.validate.min',
-        'wysiwyg': 'lib/bootstrap-wysiwyg',
-        'hotkey': 'lib/external/jquery.hotkeys',
-        'xls': 'lib/xls',
-        'XLSX': 'lib/xlsx',
-        'jszip': 'lib/jszip',
+        //'wysiwyg': 'lib/bootstrap-wysiwyg',
+        //'hotkey': 'lib/external/jquery.hotkeys',
+        //'xls': 'lib/xls',
+        //'XLSX': 'lib/xlsx',
+        //'jszip': 'lib/jszip',
         ueditorConfig: '../ueditor/ueditor.config',
         ueditorAll: '../ueditor/ueditor.all',
         ueditorLang: '../ueditor/lang/zh-cn/zh-cn',
@@ -35,21 +35,21 @@ require.config({
         , 'angular-ui-router': ['angular']
         , 'bootstrap': ['jquery']
         , 'ng-file-upload': ['angular']
-        , 'datepicker': ['jquery']
-        , 'datetimepicker': ['jquery']
-        , 'datepicker-locale': ['datepicker']
-        , 'datetimepicker-locale': ['datetimepicker']
+        //, 'datepicker': ['jquery']
+        //, 'datetimepicker': ['jquery']
+        //, 'datepicker-locale': ['datepicker']
+        //, 'datetimepicker-locale': ['datetimepicker']
         , 'multiselect': ['bootstrap']
-        , 'config': {
-            exports: 'SiteConfig'
-        }
-        , 'uniform': ['jquery'],
-        'validate': ['jquery'],
-        'login': {
+        //, 'config': {
+        //    exports: 'SiteConfig'
+        //}
+        , 'uniform': ['jquery']
+       ,'validate': ['jquery']
+        ,'login': {
             deps: ['validate'],
             exports: 'Login'
         }
-        , 'wysiwyg': ['bootstrap', 'hotkey']
+        //, 'wysiwyg': ['bootstrap', 'hotkey']
        , ueditorConfig: {
             exports: 'ueditorConfig'
         },
@@ -76,41 +76,41 @@ require([
         'bootstrap',
         'app',
         'moment',
-        'xls',
-        'XLSX',
-        'jszip',
+        //'xls',
+        //'XLSX',
+        //'jszip',
         'routes',
         'common/angular_directives/ngPagination',
         'appLogin/login_services',
         'appLogin/loginController',
         'appProduct/productService',
         'appProduct/productController',
-        'appDeliveryCharge/deliveryChargeController',
-        'appDeliveryCharge/deliveryChargeService',
+        //'appDeliveryCharge/deliveryChargeController',
+        //'appDeliveryCharge/deliveryChargeService',
         'appCate/cateController',
         'appCate/cateService',
-        'appOrder/orderServices',
-        'appOrder/orderController',
-        'appInformation/informationServices',
+        //'appOrder/orderServices',
+        //'appOrder/orderController',
+        //'appInformation/informationServices',
         'appStore/storeController',
         'appStore/storeService',
-        'appInformation/informationController',
-        'appSales/salesController',
-        'appSales/salesService',
-        'appPintuan/pinController',
-        'appPintuan/pinService',
+        //'appInformation/informationController',
+        //'appSales/salesController',
+        //'appSales/salesService',
+        //'appPintuan/pinController',
+        //'appPintuan/pinService',
         'appArticle/articleController',
         'appArticle/articleService',
         'appCertificate/certController',
         'appCertificate/certService',
-        'datepicker',
-        'datetimepicker',
-        'datepicker-locale',
-        'datetimepicker-locale',
+        //'datepicker',
+        //'datetimepicker',
+        //'datepicker-locale',
+        //'datetimepicker-locale',
         'appAuth/authService',
         'multiselect',
         'config'
-        , 'siteApp'
+        //, 'siteApp'
         , 'uniform'
         , 'validate'
         ,'ueditorConfig'

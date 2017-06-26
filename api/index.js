@@ -80,17 +80,6 @@ apiModule.init = function (app) {
 
     app.use("/companyPc/api/user", require("./users/router"));
     app.use("/companyPc/api/account", require("./account/accountRouter"));
-    app.use("/companyPc/api/goods", require("./goods/goodsRouter"));
-    app.use("/companyPc/api/pin", require("./pin/pinRouter"));
-// HEAD
-
-
-//
-    app.use("/companyPc/api/address", require("./address/addressRouter"));
-    app.use("/companyPc/api/delivery_charge", require("./delivery_charge/chargeRouter"));
-    app.use("/companyPc/api/delivery_time", require("./delivery_time/timeRouter"));
-
-
     app.use("/companyPc/api/upload", require("./upload/uploadRouter"));
     app.use("/api/cate", require("./cate/cateRouter"));
     app.use("/api/article", require("./article/articleRouter"));

@@ -52,7 +52,7 @@ define(['common/controllers', 'domReady'],
                 $('#delModal').modal();
             }
 
-            $scope.soldOut = function (index) {
+            $scope.sold = function (index) {
                 $scope.notifyContent = '确定这件作品已售出？';
                 item_index = index;
                 $('#soldModal').modal();
