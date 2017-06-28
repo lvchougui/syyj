@@ -53,7 +53,7 @@ define(['common/controllers', 'domReady'],
                     alert('请填写首页大图链接');
                     return;
                 }
-                if ($scope.configs.master_desc == '') {
+                if ($scope.configs.master_desc == ''|| !$scope.configs.master_desc) {
                     alert('请填写大师简介');
                     return;
                 }

@@ -24,13 +24,22 @@
                 <div class="portlet box grey" style="border: 1px solid #9d9c9c">
                     <div class="portlet-body form">
                         <form class="form-horizontal form-bordered" enctype="multipart/form-data">
-                            <div class="control-group">
-                                <label class="control-label" style="margin-top: 18px;">分类名称</label>
 
+                            <div class="control-group">
+                                <label class="control-label">
+                                    分类名称</label>
                                 <div class="controls">
-                                    <input ng-model="cateName" placeholder="填写分类名称" style="width: 100%;">
+                                    <input value="{{cate.name}}" ng-model="cate.name" placeholder="填写分类名称" style="width: 100%;border: none">
                                 </div>
                             </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    优先级</label>
+                                <div class="controls">
+                                    <input value="{{cate.priority}}" ng-model="cate.priority" placeholder="请输入优先级（整数，越大优先级越高）" style="width: 100%;border: none">
+                                </div>
+                            </div>
+
                             <div class="form-actions">
                                 <button type="submit" class="btn blue" ng-click="save()">确认</button>
                                 <button class="btn" ng-click="back()" style="margin-left:20px">取消

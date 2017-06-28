@@ -1,0 +1,134 @@
+<!-- BEGIN PAGE -->
+<div class="page-content">
+
+    <!-- BEGIN PAGE CONTAINER-->
+    <div class="container-fluid">
+
+        <!-- BEGIN PAGE HEADER-->
+
+        <div class="row-fluid">
+            <div class="span12">
+
+                <!-- BEGIN PAGE TITLE & BREADCRUMB-->
+                <h3 class="page-title">
+                    获奖管理——获奖详情
+                </h3>
+
+                <ul class="breadcrumb">
+                    <li>
+                        <i class="icon-home"></i>
+                        <a ui-sref="home.index">首页</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+                    <li>
+                        <a ui-sref="home.honor">获奖管理</a>
+                        <i class="icon-angle-right"></i>
+                    </li>
+                    <li>详情</li>
+                </ul>
+                <!-- END PAGE TITLE & BREADCRUMB-->
+            </div>
+
+        </div>
+
+        <div class="row-fluid">
+
+            <div class="span12">
+
+                <!-- BEGIN EXAMPLE TABLE PORTLET-->
+
+                <div class="portlet box grey" style="border: 1px solid #9d9c9c">
+
+                    <div class="portlet-body form">
+
+                        <!-- BEGIN FORM-->
+
+                        <form  class="form-horizontal form-bordered"  enctype="multipart/form-data" >
+
+                            <div class="control-group">
+                                <label class="control-label">获奖图片</label>
+                                <div class="controls">
+                                    <img  ngf-thumbnail="covers"  ngf-pattern=="image/*" style="height: 300px" ng-if="covers">
+                                    <img src="../../media/image/image5.jpg" style="height: 300px" ng-if="!covers" alt="图片尺寸最好为750*300(宽*高)">
+                                    <div style="margin-top:20px">
+                                        <button type="submit" ngf-select ng-keep="true" ngf-change="upload($files, $file, $newFiles, $duplicateFiles, $invalidFiles, $event)" class="btn blue">选择</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    标题</label>
+
+                                <div class="controls">
+                                    <input value="{{honor.title}}" ng-model="honor.title" placeholder="请输入标题" style="width: 100%;border: none">
+
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    获奖年份</label>
+
+                                <div class="controls">
+                                    <input value="{{honor.honor_year}}" ng-model="honor.honor_year" placeholder="请输入获奖年份,如 2017" style="width: 100%;border: none">
+
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    月/日</label>
+
+                                <div class="controls">
+                                    <input value="{{honor.honor_date}}" ng-model="honor.honor_date" placeholder="格式 MM/DD , 如 06/18" style="width: 100%;border: none">
+
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    获奖关联作品id</label>
+
+                                <div class="controls">
+                                    <input value="{{honor.r_prod}}" ng-model="honor.r_prod" placeholder="请输入作品id" style="width: 100%;border: none">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    作品名称</label>
+
+                                <div class="controls">
+                                    <input value="{{product.name}}" ng-model="product.name" placeholder="作品名称，无须手动输入" readonly style="width: 100%;border: none">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">获奖简介</label>
+                                <div class="controls">
+                                    <div class="ueditor" ng-model="honor.summary"  ready="ready" style="width: 100%;height: 400px;"></div>
+                                </div>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn blue" ng-click="save()">保存</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="notifyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="notifyModalLabel">操作提醒</h4>
+            </div>
+            <div class="modal-body">
+                {{notifyContent}}
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">好的</button>
+                <!--<button type="button" class="btn btn-primary" ng-click="delivery(deliveryIndex,deliveryId)" data-dismiss="modal">确定</button>-->
+            </div>
+        </div>
+    </div>
+</div>

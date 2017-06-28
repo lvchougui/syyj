@@ -63,8 +63,8 @@ function getArticleDetail(req,res){
 
 router.post("/getArticleList",getArticleList);
 router.get("/all",getAllList);
-router.get("/getArticleDetail/:articleId",getArticleDetail);
 router.post("/addArticle",addArticle);
+router.get("/getArticleDetail/:articleId",getArticleDetail);
 router.post("/updateArticle",updateArticle);
 router.put("/delArticle/:articleId",delArticle);
 

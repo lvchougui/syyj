@@ -84,6 +84,7 @@ apiModule.init = function (app) {
     app.use("/api/cate", require("./cate/cateRouter"));
     app.use("/api/article", require("./article/articleRouter"));
     app.use("/api/cert", require("./certificate/certRouter"));
+    app.use("/api/honor", require("./honor/honorRouter"));
     app.use("/api/product", require("./product/productRouter"));
 
 }

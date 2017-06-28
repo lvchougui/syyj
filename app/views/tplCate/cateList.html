@@ -11,9 +11,7 @@
 
                 <!-- BEGIN PAGE TITLE & BREADCRUMB-->
                 <h3 class="page-title">
-
-                    FAQ分类管理
-
+                    分类管理
                 </h3>
 
                 <ul class="breadcrumb">
@@ -37,7 +35,7 @@
                     <div class="portlet-title">
                         <div class="caption"><i class="icon-globe"></i>分类列表</div>
                         <div class="actions">
-                            <a ui-sref="home.addCate" class="btn blue"><i class="icon-pencil"></i> 新增分类</a>
+                            <a ui-sref="home.addCate({cateId:0})" class="btn blue"><i class="icon-pencil"></i> 新增分类</a>
                         </div>
                     </div>
 
@@ -58,6 +56,9 @@
                                 <th class="hidden-480 sorting_disabled" role="columnheader" rowspan="1" colspan="1"
                                     aria-label="Joined">分类名称
                                 </th>
+                                <th class="hidden-480 sorting_disabled" role="columnheader" rowspan="1" colspan="1"
+                                    aria-label="Joined">优先级
+                                </th>
 
                                 <th class="hidden-480 sorting_disabled" role="columnheader" rowspan="1" colspan="1"
                                     aria-label="Joined">操作
@@ -70,7 +71,9 @@
                                 ng-class="{'odd':$odd,'even':$even}"ng-if="item.status!=0">
                                 <td class=" ">{{item.id}}</td>
                                 <td class="center hidden-480 ">{{item.name}}</td>
+                                <td class="center hidden-480 ">{{item.priority}}</td>
                                 <td style="text-align: center" class="center hidden-480 ">
+                                    <a><div ng-click="getDetail(item.id)" style="float: left;margin-left: 10px;" ng-show="item.status==1">修改</div></a>
                                     <a><div ng-click="del($index)" style="float: left;margin-left: 10px;" ng-show="item.status==1">删除</div></a>
                                 </td>
                             </tr>

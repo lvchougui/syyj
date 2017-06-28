@@ -30,35 +30,53 @@ define(['common/controllers', 'domReady'],
                     alert(err);
                 })
             }
+            $scope.getDetail = function (cateId) {
+                $state.go("home.addCate", {cateId: cateId});
+            }
         });
 
-        controllers.controller('AddCateCtrl', function ($scope, CateService,ProductService, validation, errMap, $state) {
-            var cancelPil = function () {
-                if (this && this.stopPropagation) {
-                    console.log("取消冒泡！！");
-                    //W3C取消冒泡事件
-                    this.stopPropagation();
-                } else {
-                    console.log("取消冒泡！！");
-                    //IE取消冒泡事件
-                    window.event.cancelBubble = true;
-                }
+        controllers.controller('AddCateCtrl', function ($scope, CateService,ProductService,$stateParams, validation, errMap, $state) {
+            $scope.cateId = $stateParams.cateId;
+
+            //var cancelPil = function () {
+            //    if (this && this.stopPropagation) {
+            //        console.log("取消冒泡！！");
+            //        //W3C取消冒泡事件
+            //        this.stopPropagation();
+            //    } else {
+            //        console.log("取消冒泡！！");
+            //        //IE取消冒泡事件
+            //        window.event.cancelBubble = true;
+            //    }
+            //}
+            if ($scope.cateId != 0) {
+                CateService.getCateDetail($scope.cateId).then(function (data) {
+                    console.log(data);
+                    $scope.cate = data;
+                })
             }
-            $scope.cateName='';
+
             $scope.back = function () {
                 history.back();
             }
             $scope.save = function(){
-
-                var data = {
-                    cateName:$scope.cateName
+                if ($scope.cateId != 0) {
+                    $scope.cate.id = $scope.cateId;
+                    CateService.updateCate($scope.cate).then(function (data) {
+                        //console.log(data);
+                        $state.go('home.cate');
+                    }, function (err) {
+                        console.log(err);
+                    })
+                }else{
+                    CateService.addCate($scope.cate).then(function (data) {
+                        //console.log(data);
+                        $state.go('home.cate');
+                    }, function (err) {
+                        console.log(err);
+                    })
                 }
-                CateService.addCate(data).then(function (data) {
-                    //console.log(data);
-                    $state.go('home.cate');
-                }, function (err) {
-                    console.log(err);
-                })
+
             }
         });
 

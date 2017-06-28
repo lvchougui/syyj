@@ -1,21 +1,11 @@
-
-
-define(['common/services'],
-    function (services) {
-        services.factory('CateService', function ($http,$q,Upload) {
+define(['common/services','moment'],
+    function (services,moment) {
+        services.factory('HonorService', function ($http,$q,Upload,$cacheFactory) {
             return{
-                getCateList:function(){
+
+                getHonorList:function(params){
                     var deferred = $q.defer();
-                    $http.get('/api/cate/getCateList').success(function(res){
-                        deferred.resolve(res);
-                    }).error(function(err){
-                        deferred.reject(err);
-                    })
-                    return deferred.promise;
-                },
-                getCateDetail:function(data){
-                    var deferred = $q.defer();
-                    $http.get('/api/cate/getCateDetail/'+data).success(function(res){
+                    $http.post('/api/honor/getHonorList',params).success(function(res){
                         console.log(res);
                         deferred.resolve(res);
                     }).error(function(err){
@@ -23,34 +13,47 @@ define(['common/services'],
                     })
                     return deferred.promise;
                 },
-                updateCate:function(data){
+
+                delHonor:function(data){
                     var deferred = $q.defer();
-                    $http.post('/api/cate/updateCate',data).success(function(res){
+                    $http.put('/api/honor/delHonor/'+data).success(function(res){
                         deferred.resolve(res);
                     }).error(function(err){
                         deferred.reject(err);
                     })
                     return deferred.promise;
                 },
-                addCate:function(data){
+
+                getHonorDetail:function(data){
+                    var deferred = $q.defer();
+                    $http.get('/api/honor/getHonorDetail/'+data).success(function(res){
+                        console.log(res);
+                        deferred.resolve(res);
+                    }).error(function(err){
+                        deferred.reject(err);
+                    })
+                    return deferred.promise;
+                },
+
+                updateHonor:function(data){
+                    var deferred = $q.defer();
+                    $http.post('/api/honor/updateHonor',data).success(function(res){
+                        deferred.resolve(res);
+                    }).error(function(err){
+                        deferred.reject(err);
+                    })
+                    return deferred.promise;
+                },
+                addHonor:function(data){
                     console.log(data);
                     var deferred = $q.defer();
-                    $http.post('/api/cate/addCate',data).success(function(res){
+                    $http.post('/api/honor/addHonor',data).success(function(res){
                         deferred.resolve(res);
                     }).error(function(err){
                         deferred.reject(err);
                     })
                     return deferred.promise;
-                },
-                delCate:function(data){
-                    var deferred = $q.defer();
-                    $http.put('/api/cate/delCate/'+data.cateId).success(function(res){
-                        deferred.resolve(res);
-                    }).error(function(err){
-                        deferred.reject(err);
-                    })
-                    return deferred.promise;
-                },
+                }
             }
         });
     });

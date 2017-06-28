@@ -103,6 +103,8 @@ require([
         'appArticle/articleService',
         'appCertificate/certController',
         'appCertificate/certService',
+        'appHonor/honorController',
+        'appHonor/honorService',
         //'datepicker',
         //'datetimepicker',
         //'datepicker-locale',

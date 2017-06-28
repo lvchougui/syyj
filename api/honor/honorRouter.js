@@ -1,8 +1,8 @@
 var router = require("express").Router();
-var cateDao = require('./cateModel');
+var honorDao = require('./honorModel');
 
-function getCateList(req, res){
-    cateDao.getCateList(function(err, data){
+function getHonorList(req, res){
+    honorDao.getHonorList(req.body,function(err, data){
         if (!!err) {
             console.log(err);
             return res.json(500, err);
@@ -11,8 +11,8 @@ function getCateList(req, res){
     })
 }
 
-function addCate(req, res){
-    cateDao.addCate(req.body, function(err, data){
+function addHonor(req, res){
+    honorDao.addHonor(req.body, function(err, data){
         if (!!err) {
             console.log(err);
             return res.json(500, err);
@@ -21,8 +21,8 @@ function addCate(req, res){
     })
 }
 
-function delCate(req,res){
-    cateDao.delCate(req.params.cateId,function(err, data){
+function delHonor(req,res){
+    honorDao.delHonor(req.params.honorId,function(err, data){
         if (!!err) {
             console.log(err);
             return res.json(500,  err);
@@ -31,8 +31,8 @@ function delCate(req,res){
     })
 }
 
-function updateCate(req,res){
-    cateDao.updateCate(req.body,function(err, data){
+function updateHonor(req,res){
+    honorDao.updateHonor(req.body,function(err, data){
         if (!!err) {
             console.log(err);
             return res.json(500,  err);
@@ -41,8 +41,8 @@ function updateCate(req,res){
     })
 }
 
-function getCateDetail(req,res){
-    cateDao.getDetail(req.params.cateId,function(err, data){
+function getHonorDetail(req,res){
+    honorDao.getDetail(req.params.honorId,function(err, data){
         if (!!err) {
             console.log(err);
             return res.json(500, err);
@@ -51,10 +51,10 @@ function getCateDetail(req,res){
     })
 }
 
-router.get("/getCateList",getCateList);
-router.post("/addCate",addCate);
-router.put("/delCate/:cateId",delCate);
-router.get("/getCateDetail/:cateId",getCateDetail);
-router.post("/updateCate",updateCate);
+router.post("/getHonorList",getHonorList);
+router.get("/getHonorDetail/:honorId",getHonorDetail);
+router.post("/addHonor",addHonor);
+router.post("/updateHonor",updateHonor);
+router.put("/delHonor/:honorId",delHonor);
 
 module.exports = router;

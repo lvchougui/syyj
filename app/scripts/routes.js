@@ -61,6 +61,34 @@ define(['app'], function (app) {
                         }
                     }
                 })
+                .state("home.honor", {
+                    url: "/honor",
+                    views: {
+                        '': {
+                            templateUrl: 'views/tplHonor/honorList.html',
+                            controller: 'HonorCtrl'
+                        }, 'sidebar': {
+                            templateUrl: 'views/common/sidebar.html'
+                        },
+                        'footer': {
+                            templateUrl: 'views/common/footer.html'
+                        }
+                    }
+                })
+                .state("home.honorDetail", {
+                    url: "/honorDetail/{honorId}",
+                    views: {
+                        '': {
+                            templateUrl: 'views/tplHonor/honorDetail.html',
+                            controller: 'HonorDetailCtrl'
+                        }, 'sidebar': {
+                            templateUrl: 'views/common/sidebar.html'
+                        },
+                        'footer': {
+                            templateUrl: 'views/common/footer.html'
+                        }
+                    }
+                })
                 .state("home.article", {
                     url: "/article",
                     views: {
@@ -147,7 +175,7 @@ define(['app'], function (app) {
                     }
                 })
                 .state("home.addCate", {
-                    url: "/addCate",
+                    url: "/addCate/{cateId}",
                     views: {
                         '': {
                             templateUrl: 'views/tplCate/addCate.html',
