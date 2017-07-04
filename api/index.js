@@ -82,6 +82,7 @@ apiModule.init = function (app) {
     app.use("/companyPc/api/account", require("./account/accountRouter"));
     app.use("/companyPc/api/upload", require("./upload/uploadRouter"));
     app.use("/api/cate", require("./cate/cateRouter"));
+    app.use("/api/banner", require("./banner/bannerRouter"));
     app.use("/api/article", require("./article/articleRouter"));
     app.use("/api/cert", require("./certificate/certRouter"));
     app.use("/api/honor", require("./honor/honorRouter"));

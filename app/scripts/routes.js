@@ -188,6 +188,34 @@ define(['app'], function (app) {
                         }
                     }
                 })
+                .state("home.banner", {
+                    url: "/banner",
+                    views: {
+                        '': {
+                            templateUrl: 'views/tplBanner/bannerList.html',
+                            controller: 'BannerCtrl'
+                        }, 'sidebar': {
+                            templateUrl: 'views/common/sidebar.html'
+                        },
+                        'footer': {
+                            templateUrl: 'views/common/footer.html'
+                        }
+                    }
+                })
+                .state("home.addBanner", {
+                    url: "/addBanner/{bannerId}",
+                    views: {
+                        '': {
+                            templateUrl: '../views/tplBanner/bannerDetail.html',
+                            controller: 'BannerDetailCtrl'
+                        }, 'sidebar': {
+                            templateUrl: 'views/common/sidebar.html'
+                        },
+                        'footer': {
+                            templateUrl: 'views/common/footer.html'
+                        }
+                    }
+                })
         }
     ]);
 });

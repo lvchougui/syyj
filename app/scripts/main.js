@@ -89,6 +89,8 @@ require([
         //'appDeliveryCharge/deliveryChargeService',
         'appCate/cateController',
         'appCate/cateService',
+        'appBanner/bannerController',
+        'appBanner/bannerService',
         //'appOrder/orderServices',
         //'appOrder/orderController',
         //'appInformation/informationServices',
