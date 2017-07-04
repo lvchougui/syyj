@@ -53,7 +53,7 @@
 
                                 <form class="form-search pull-right" ng-submit="">
                                     <div class="input-append">
-                                        <input class="m-wrap" type="text" ng-model="product_key" placeholder="作品名称">
+                                        <input class="m-wrap" type="text" ng-model="product_key" placeholder="名称/编号/题材">
                                         <button class="btn green" type="submit" ng-click="searchProduct()">
                                             <strong>搜索</strong></button>
                                     </div>
@@ -79,10 +79,19 @@
                                         colspan="1" aria-label="Username: activate to sort column ascending"
                                         style="width: 100px;">作品id
                                     </th>
+                                    <th class="sorting" role="columnheader" tabindex="0" aria-controls="sample_1" rowspan="1"
+                                        colspan="1" aria-label="Username: activate to sort column ascending"
+                                        style="width: 100px;">编号
+                                    </th>
                                     <th class="sorting" role="columnheader" tabindex="0"
                                         aria-controls="sample_1" rowspan="1" colspan="1"
                                         aria-label="Points: activate to sort column ascending" style="min-width: 50px">
                                         作品名称
+                                    </th>
+                                    <th class="sorting" role="columnheader" tabindex="0"
+                                        aria-controls="sample_1" rowspan="1" colspan="1"
+                                        aria-label="Points: activate to sort column ascending" style="min-width: 50px">
+                                        题材
                                     </th>
                                     <th class="sorting" role="columnheader" tabindex="0"
                                         aria-controls="sample_1" rowspan="1" colspan="1"
@@ -104,6 +113,11 @@
                                         aria-label="Points: activate to sort column ascending" style="min-width: 50px">
                                         是否已售
                                     </th>
+                                    <th class="sorting" role="columnheader" tabindex="0"
+                                        aria-controls="sample_1" rowspan="1" colspan="1"
+                                        aria-label="Points: activate to sort column ascending" style="min-width: 50px">
+                                        是否显示
+                                    </th>
                                     <th class="hidden-480 sorting_disabled" role="columnheader" rowspan="1" colspan="1"
                                         aria-label="Joined" style="text-align: center;width:80px;">操作</th>
                                 </tr>
@@ -113,11 +127,14 @@
                                 <tr class="gradeX odd" ng-repeat="item in products"
                                     ng-class="{'odd':$odd,'even':$even}" ng-if="item.status!=0">
                                     <td class=" "><a ng-click="getDetail(item.id)">{{item.id}}</a></td>
+                                    <td><a ng-click="getDetail(item.id)">{{item.p_code}}</a></td>
                                     <td><a ng-click="getDetail(item.id)">{{item.name}}</a></td>
+                                    <td>{{item.p_style}}</td>
                                     <td>{{item.p_material}}</td>
                                     <td>{{item.p_size}}</td>
                                     <td>{{item.p_weight}}</td>
                                     <td><span ng-if="item.is_sold==0">未售</span><span ng-if="item.is_sold==1">已售</span></td>
+                                    <td><span ng-if="item.p_display==0">不显示</span><span ng-if="item.p_display==1">显示</span></td>
                                     <td style="text-align: center" >
                                         <a><div ng-click="getDetail(item.id)">修改</div></a>
                                         <a><div ng-click="del($index)">删除</div></a>

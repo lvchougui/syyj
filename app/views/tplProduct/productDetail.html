@@ -66,9 +66,23 @@
                             </div>
                             <div class="control-group">
                                 <label class="control-label">
+                                    作品编号</label>
+                                <div class="controls">
+                                    <input value="{{product.p_code}}" ng-model="product.p_code" placeholder="请输入作品编号" style="width: 100%;border: none" required>
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
                                     作品名称</label>
                                 <div class="controls">
                                     <input value="{{product.name}}" ng-model="product.name" placeholder="请输入作品名称" style="width: 100%;border: none">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    题材</label>
+                                <div class="controls">
+                                    <input value="{{product.p_style}}" ng-model="product.p_style" placeholder="请输入作品题材" style="width: 100%;border: none" required>
                                 </div>
                             </div>
                             <div class="control-group">
@@ -97,6 +111,16 @@
                                     重量</label>
                                 <div class="controls">
                                     <input value="{{product.p_weight}}" ng-model="product.p_weight" placeholder="请输入作品重量" style="width: 100%;border: none">
+                                </div>
+                            </div>
+                            <div class="control-group">
+                                <label class="control-label">
+                                    是否显示</label>
+                                <div class="controls">
+                                    <div ng-repeat="item in displayStatus" style="float: left;">
+                                        <span ng-if="item.id==displayType"  style="margin-left:20px;cursor: pointer;color: #fff;background: #4d90fe;padding: 5px;"  ng-click="selectDisplay(item)">{{item.name}}</span>
+                                        <span ng-if="item.id!=displayType"  ng-click="selectDisplay(item)" style="margin-left:20px;cursor: pointer" >{{item.name}}</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="control-group">

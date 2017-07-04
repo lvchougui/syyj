@@ -47,7 +47,7 @@ define(['common/controllers', 'domReady'],
             }
 
             $scope.save = function () {
-                $("button").attr("disabled", "disabled");  //将所有button的disable属性值设置为disable
+                //$("button").attr("disabled", "disabled");  //将所有button的disable属性值设置为disable
 
                 if (!$scope.configs.img_href||$scope.configs.img_href=='') {
                     alert('请填写首页大图链接');
@@ -57,7 +57,7 @@ define(['common/controllers', 'domReady'],
                     alert('请填写大师简介');
                     return;
                 }
-                    addSave();
+                addSave();
             }
 
             function addSave() {

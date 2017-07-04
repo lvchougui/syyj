@@ -121,22 +121,25 @@ define(['common/controllers', 'domReady'],
             $scope.productId = $stateParams.productId;
             $scope.product = {};
 
+            $scope.displayStatus = [{id: 0, name: '不显示'}, {id: 1, name: '显示'}];
             $scope.soldStatus = [{id: 0, name: '未售'}, {id: 1, name: '已售'}];
 
             ProductService.getCateList().then(function (data) {
                 $scope.cates = data;
                 if ($scope.productId != 0) {
                     ProductService.getProductDetail($scope.productId).then(function (data) {
-                        console.log(data);
                         $scope.product = data;
                         $scope.cateId = data.cateId;
                         $scope.content = data.detail;
                         $scope.soldType = data.is_sold;
+                        $scope.displayType = data.p_display;
+                        $scope.covers = data.cover;
                     })
                 } else {
                     $scope.cateId = data[0].id;
                     $scope.product.cateId = data[0].id;
                     $scope.soldType = 0;
+                    $scope.displayType = 1;
                     $scope.product.is_sold = 0;
                 }
             }, function (err) {
@@ -168,6 +171,10 @@ define(['common/controllers', 'domReady'],
                 $scope.soldType = item.id;
                 $scope.product.is_sold = item.id;
             }
+            $scope.selectDisplay = function (item) {
+                $scope.displayType = item.id;
+                $scope.product.p_display = item.id;
+            }
 
             $scope.selectCate = function (item) {
                 $scope.cateId = item.id;
@@ -180,8 +187,18 @@ define(['common/controllers', 'domReady'],
                     $('#notifyModal').modal();
                     return;
                 }
+                if (!$scope.product.p_code || $scope.product.p_code == '') {
+                    $scope.notifyContent = '请输入作品编号';
+                    $('#notifyModal').modal();
+                    return;
+                }
                 if (!$scope.product.name || $scope.product.name == '') {
                     $scope.notifyContent = '请输入作品名称';
+                    $('#notifyModal').modal();
+                    return;
+                }
+                if (!$scope.product.p_style || $scope.product.p_style == '') {
+                    $scope.notifyContent = '请输入作品题材';
                     $('#notifyModal').modal();
                     return;
                 }

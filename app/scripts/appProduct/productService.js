@@ -46,7 +46,6 @@ define(['common/services','moment'],
                 getProductDetail:function(data){
                     var deferred = $q.defer();
                     $http.get('/api/product/getProductDetail/'+data).success(function(res){
-                        console.log(res);
                         deferred.resolve(res);
                     }).error(function(err){
                         deferred.reject(err);

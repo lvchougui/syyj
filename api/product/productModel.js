@@ -5,10 +5,10 @@ var moment = require('moment');
 
 productDao.getProductList = function(data,cb){
     var sql,sqlCount;
-    var sqlCondition = 'select * from tb_product where name like \'%'+data.name+'%\' and status = 1 and cateId = ? order by id desc limit ?,?';
+    var sqlCondition = 'select * from tb_product where name like \'%'+data.name+'%\' or p_code like \'%'+data.name+'%\' or p_style like \'%'+data.name+'%\' and status = 1 and cateId = ? order by id desc limit ?,?';
     var sqlNormal = 'select * from tb_product where status = 1 and cateId = ? order by id desc limit ?,?';
     var sqlCountNormal ='select count(id) as number from tb_product where status = 1 and cateId = '+data.cateId;
-    var sqlCountCondition ='select count(id) as number from tb_product where name like \'%'+data.name+'%\' and status = 1 and cateId = '+data.cateId;
+    var sqlCountCondition ='select count(id) as number from tb_product where name like \'%'+data.name+'%\' or p_code like \'%'+data.name+'%\' or p_style like \'%'+data.name+'%\' and status = 1 and cateId = '+data.cateId;
     if(data.name){
         sql = sqlCondition;
         sqlCount = sqlCountCondition;
@@ -48,7 +48,9 @@ productDao.getDetail = function (productid, cb) {
 productDao.addProduct = function(data,cb){
     var sql = '';
     var fields = [
+        'p_code',
         'name',
+        'p_code',
         'cover',
         'detail',
         'cateId',
@@ -56,9 +58,13 @@ productDao.addProduct = function(data,cb){
         'p_size',
         'p_weight',
         'summary',
-        'is_sold'
+        'is_sold',
+        'p_display'
     ];
     var values=[
+        '?',
+        '?',
+        '?',
         '?',
         '?',
         '?',
@@ -73,7 +79,7 @@ productDao.addProduct = function(data,cb){
     var sqlInsert = 'insert into tb_product ('+fields.join(',')+') values ('+values.join(',') +')' ;
     // 拼接字符串
     sql += sqlInsert;
-    sqlClient.query(sql,[data.name,data.cover,data.detail,data.cateId,data.p_material,data.p_size,data.p_weight,data.summary,data.is_sold],function(err, rows){
+    sqlClient.query(sql,[data.p_code,data.p_style,data.name,data.cover,data.detail,data.cateId,data.p_material,data.p_size,data.p_weight,data.summary,data.is_sold,data.p_display],function(err, rows){
         if(err){
             return  cb&&cb(err, null);
         }else{
@@ -89,7 +95,9 @@ productDao.addProduct = function(data,cb){
 
 productDao.updateProduct = function(data,cb){
     var fields = [
+        'p_code = ?',
         'name = ?',
+        'p_style = ?',
         'cover = ?',
         'detail = ?',
         'cateId = ?',
@@ -97,7 +105,8 @@ productDao.updateProduct = function(data,cb){
         'p_size = ?',
         'p_weight = ?',
         'summary = ?',
-        'is_sold = ?'
+        'is_sold = ?',
+        'p_display = ?'
         ]
     //var desc = html_encode(data.detail);
     var sql = 'update tb_product set '+fields.join(',')+' where id = '+data.id;
@@ -105,7 +114,7 @@ productDao.updateProduct = function(data,cb){
     if(data.cateId && data.cateId>0){
         cateId = data.cateId;
     }
-    sqlClient.query(sql,[data.name,data.cover,data.detail,cateId,data.p_material,data.p_size,data.p_weight,data.summary,data.is_sold],function(err, data){
+    sqlClient.query(sql,[data.p_code,data.name,data.p_style,data.cover,data.detail,cateId,data.p_material,data.p_size,data.p_weight,data.summary,data.is_sold,data.p_display],function(err, data){
         if(err){
             return  cb&&cb(err, null);
         }
