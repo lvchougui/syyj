@@ -21,6 +21,17 @@ function getArticleList(req, res){
     })
 }
 
+function frontGetArticleList(req, res){
+    var body = JSON.parse(req.body.data);
+    articleDao.getArticleList(body,function(err, data){
+        if (!!err) {
+            console.log(err);
+            return res.json(500, err);
+        }
+        return res.json(200, data);
+    })
+}
+
 function addArticle(req, res){
     articleDao.addArticle(req.body, function(err, data){
         if (!!err) {
@@ -62,6 +73,7 @@ function getArticleDetail(req,res){
 }
 
 router.post("/getArticleList",getArticleList);
+router.post("/frontGetArticleList",frontGetArticleList);
 router.get("/all",getAllList);
 router.post("/addArticle",addArticle);
 router.get("/getArticleDetail/:articleId",getArticleDetail);
