@@ -11,6 +11,18 @@ function getProductList(req, res){
     })
 }
 
+function frontGetProductList(req, res){
+    console.log(JSON.parse(req.body.data));
+    var body = JSON.parse(req.body.data);
+    productDao.frontGetProductList(body,function(err, data){
+        if (!!err) {
+            console.log(err);
+            return res.json(500, err);
+        }
+        return res.json(200, data);
+    })
+}
+
 function addProduct(req, res){
     productDao.addProduct(req.body, function(err, data){
         if (!!err) {
@@ -62,6 +74,7 @@ function getProductDetail(req,res){
 }
 
 router.post("/getProductList",getProductList);
+router.post("/frontGetProductList",frontGetProductList);
 router.get("/getProductDetail/:productId",getProductDetail);
 router.post("/addProduct",addProduct);
 router.post("/updateProduct",updateProduct);

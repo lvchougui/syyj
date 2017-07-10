@@ -16,6 +16,7 @@ productDao.getProductList = function(data,cb){
         sql = sqlNormal;
         sqlCount = sqlCountNormal;
     }
+
     sqlClient.query(sql, [data.cateId,parseInt((data.page - 1) * data.size), parseInt(data.size)], function(err, data){
         if(err){
             return cb && cb(err, null);
@@ -32,6 +33,29 @@ productDao.getProductList = function(data,cb){
         }else{
             return cb&&cb(null,response);
         }
+    })
+}
+
+productDao.frontGetProductList = function(data,cb){
+    var sql;
+    var sqlNormal = 'select * from tb_product where status = 1';
+    var cateCondition = ' and cateId = '+ data.cateId;
+    var nameCondition = ' and name like \'%'+data.name+'%\' or p_code like \'%'+data.name+'%\' or p_style like \'%'+data.name+'%\'';
+    var orderBy = ' order by id desc limit ?,?'
+    if(data.name&&data.name.length>0){
+        sql = sqlNormal + nameCondition;
+    }else{
+        sql = sqlNormal;
+    }
+    if(data.cateId&&data.cateId>0){
+        sql += cateCondition;
+    }
+    sql += orderBy;
+    sqlClient.query(sql, [parseInt((data.page - 1) * data.size), parseInt(data.size)], function(err, data){
+        if(err){
+            return cb && cb(err, null);
+        }
+            return cb&&cb(null,data);
     })
 }
 
