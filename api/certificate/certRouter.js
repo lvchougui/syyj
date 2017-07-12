@@ -52,7 +52,7 @@ function getCertDetail(req,res){
 }
 
 function getFrontCertDetail(req,res){
-    certDao.getDetail(req.params.certCode,function(err, data){
+    certDao.frontDetail(req.params.certCode,function(err, data){
         if (!!err) {
             console.log(err);
             return res.json(500, err);

@@ -58,12 +58,13 @@ certDao.getDetail = function (certid, cb) {
 }
 
 certDao.frontDetail = function(certCode,cb){
-    var sql = 'select tb_certificate.cert_code as cert_code,tb_certificate.cover as cert_cover,tb_product.* from tb_certificate left join tb_product ' +
-        'on tb_certificate.r_prod=tb_product.id where tb_certificate.status = 1 and tb_certificate.cert_code = '+certCode;
+    var sql = "select tb_certificate.cert_code as c_code,tb_certificate.cover as c_cover,tb_product.* from tb_certificate left join tb_product " +
+        "on tb_certificate.r_prod=tb_product.id where tb_certificate.status = 1 and tb_certificate.cert_code = '"+certCode+"'";
     sqlClient.query(sql,null,function(err, data){
         if(err){
             return  cb&&cb(err, null);
         }
+
         return  cb&&cb(null, data[0]);
     })
 }
