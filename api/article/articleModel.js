@@ -2,45 +2,20 @@ var sqlClient = require('../lib/mysql/mysql');
 var articleDao = module.exports;
 var moment = require('moment');
 
-
-var getList =function(data,cb){
-    var sql = 'select * from tb_article where status = 1 and cateId = '+data.id;
-    sqlClient.query(sql,null,function (err,data) {
-        if(err){
-            return  cb&&cb(err, null);
-        }else{
-            return cb&&cb(null,data);
-        }
-    })
-}
-articleDao.getAll = function(cb){
-    var sql1 = "select * from tb_cate where status = 1";
-    var i=0;
-    sqlClient.query(sql1, null, function(err, datas){
-        if(err){
-            return cb && cb(err, null);
-        }
-        if(datas.length>0){
-            datas.forEach(function (item) {
-                var response= {
-                    data: datas,
-                }
-                getList(item,function (err,res) {
-                    if(err){
-                        return  cb&&cb(err, null);
-                    }
-                    i++;
-                    item.list=res;
-                    if(i==datas.length){
-                        return cb&&cb(null,response);
-                    }
-                })
-            })
-        }else{
-            return cb&&cb(null,response);
-        }
-    })
-
+Date.prototype.Format = function (fmt) {
+    var o = {
+        "M+": this.getMonth() + 1, //月份
+        "d+": this.getDate(), //日
+        "h+": this.getHours(), //小时
+        "m+": this.getMinutes(), //分
+        "s+": this.getSeconds(), //秒
+        "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+        "S": this.getMilliseconds() //毫秒
+    };
+    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+    for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+    return fmt;
 }
 
 articleDao.getArticleList = function(data,cb){
@@ -82,19 +57,22 @@ articleDao.addArticle = function(data,cb){
         'title',
         'cover',
         'detail',
-        'summary'
+        'summary',
+        'create_time'
     ];
     var values=[
         '?',
         '?',
         '?',
+        '?',
         '?'
     ];
+    var createTime = new Date().Format("yyyy/MM/dd");
 
     var sqlInsert = 'insert into tb_article ('+fields.join(',')+') values ('+values.join(',') +')' ;
     // 拼接字符串
     sql += sqlInsert;
-    sqlClient.query(sql,[data.title,data.cover,data.detail,data.summary],function(err, rows){
+    sqlClient.query(sql,[data.title,data.cover,data.detail,data.summary,createTime],function(err, rows){
         if(err){
             return  cb&&cb(err, null);
         }else{
@@ -185,3 +163,4 @@ function html_decode(str)
     s = s.replace(/&quot;/g, "\"");
     s = s.replace(/<br>/g, "\n");
 }
+
