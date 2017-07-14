@@ -37,25 +37,40 @@ productDao.getProductList = function(data,cb){
 }
 
 productDao.frontGetProductList = function(data,cb){
-    var sql;
+    var sql,sqlCount;
     var sqlNormal = 'select * from tb_product where status = 1';
+    var sqlCountNormal ='select count(id) as number from tb_product where status = 1';
     var cateCondition = ' and cateId = '+ data.cateId;
     var nameCondition = ' and name like \'%'+data.name+'%\' or p_code like \'%'+data.name+'%\' or p_style like \'%'+data.name+'%\'';
-    var orderBy = ' order by id desc limit ?,?'
+    var orderBy = ' order by id desc limit ?,?';
     if(data.name&&data.name.length>0){
         sql = sqlNormal + nameCondition;
+        sqlCount = sqlCountNormal + nameCondition;
     }else{
         sql = sqlNormal;
+        sqlCount = sqlCountNormal;
     }
     if(data.cateId&&data.cateId>0){
         sql += cateCondition;
+        sqlCount += cateCondition;
     }
     sql += orderBy;
     sqlClient.query(sql, [parseInt((data.page - 1) * data.size), parseInt(data.size)], function(err, data){
         if(err){
             return cb && cb(err, null);
         }
-            return cb&&cb(null,data);
+        var response={
+            array:data,
+            counts:0
+        }
+        if(response.array.length>0){
+            sqlClient.query(sqlCount,null,function(err, data){
+                response.counts=data[0].number;
+                return cb&&cb(null,response);
+            })
+        }else{
+            return cb&&cb(null,response);
+        }
     })
 }
 

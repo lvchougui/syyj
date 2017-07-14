@@ -11,6 +11,17 @@ function getHonorList(req, res){
     })
 }
 
+function getHonorListByYear(req, res){
+    var body = JSON.parse(req.body.data);
+    honorDao.getHonorListByYear(body,function(err, data){
+        if (!!err) {
+            console.log(err);
+            return res.json(500, err);
+        }
+        return res.json(200, data);
+    })
+}
+
 function addHonor(req, res){
     honorDao.addHonor(req.body, function(err, data){
         if (!!err) {
@@ -52,6 +63,7 @@ function getHonorDetail(req,res){
 }
 
 router.post("/getHonorList",getHonorList);
+router.post("/getHonorListByYear",getHonorListByYear);
 router.get("/getHonorDetail/:honorId",getHonorDetail);
 router.post("/addHonor",addHonor);
 router.post("/updateHonor",updateHonor);

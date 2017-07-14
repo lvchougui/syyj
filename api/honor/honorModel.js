@@ -25,6 +25,28 @@ honorDao.getHonorList = function(data,cb){
     })
 }
 
+honorDao.getHonorListByYear = function(data,cb){
+    var sql = 'select * from tb_honor where status = 1 and honor_year = ? order by honor_year desc limit ?,?';
+    var sqlCount ='select count(id) as number from tb_honor where status = 1 and honor_year = ?';
+    sqlClient.query(sql, [data.year,parseInt((data.page - 1) * data.size), parseInt(data.size)], function(err, data){
+        if(err){
+            return cb && cb(err, null);
+        }
+        var response={
+            array:data,
+            counts:0
+        }
+        if(response.array.length>0){
+            sqlClient.query(sqlCount,null,function(err, data){
+                response.counts=data[0].number;
+                return cb&&cb(null,response);
+            })
+        }else{
+            return cb&&cb(null,response);
+        }
+    })
+}
+
 honorDao.getDetail = function (honorid, cb) {
     var sql = 'select * from tb_honor where status = 1 and id = '+honorid;
     sqlClient.query(sql,null,function(err, data){
