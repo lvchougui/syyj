@@ -27,7 +27,7 @@ honorDao.getHonorList = function(data,cb){
 
 honorDao.getHonorListByYear = function(data,cb){
     var sql = 'select * from tb_honor where status = 1 and honor_year = ? order by honor_year desc limit ?,?';
-    var sqlCount ='select count(id) as number from tb_honor where status = 1 and honor_year = ?';
+    var sqlCount ='select count(id) as number from tb_honor where status = 1 and honor_year = '+data.year;
     sqlClient.query(sql, [data.year,parseInt((data.page - 1) * data.size), parseInt(data.size)], function(err, data){
         if(err){
             return cb && cb(err, null);
