@@ -38,8 +38,8 @@ productDao.getProductList = function(data,cb){
 
 productDao.frontGetProductList = function(data,cb){
     var sql,sqlCount;
-    var sqlNormal = 'select * from tb_product where status = 1';
-    var sqlCountNormal ='select count(id) as number from tb_product where status = 1';
+    var sqlNormal = 'select * from tb_product where status = 1 and p_display = 1';
+    var sqlCountNormal ='select count(id) as number from tb_product where status = 1 and p_display = 1';
     var cateCondition = ' and cateId = '+ data.cateId;
     var nameCondition = ' and name like \'%'+data.name+'%\' or p_code like \'%'+data.name+'%\' or p_style like \'%'+data.name+'%\'';
     var orderBy = ' order by id desc limit ?,?';
@@ -88,8 +88,8 @@ productDao.addProduct = function(data,cb){
     var sql = '';
     var fields = [
         'p_code',
+        'p_style',
         'name',
-        'p_code',
         'cover',
         'detail',
         'cateId',
