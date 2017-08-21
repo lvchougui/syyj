@@ -7,7 +7,7 @@ function getBannerList(req, res){
             console.log(err);
             return res.json(500, err);
         }
-        return res.json(200, data);
+        return res.status(200).json(data);
     })
 }
 
